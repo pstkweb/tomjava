@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<rep>
+<texte>
+<phrase id="P1">Il fait beau est chaud aujourd'hui.</phrase>
+<phrase id="P2">Ce chat est beau, gentil et agréable, surtout aujourd'hui qu'il fait chaud.</phrase>
+<phrase id="P3">Certains diraient qu'il est agréable mais distant même s'il est beau. </phrase>
+<phrase id="P4">Vous ne trouvez pas que c'est un gentil chat un peu étrange ?</phrase>
+<phrase id="P5">Etre distant pour un chat n'est pas si bizarre, surtout pour cette race !</phrase>
+<phrase id="P6">Certaines races de chat viennent d'Egypte</phrase>
+<phrase id="P7">Ce chat a été adopté.</phrase>
+<phrase id="P8">Une petite fille décida qu'elle voulait un animal.</phrase>
+<phrase id="P9">Cette fille aimait beaucoup les animaux.</phrase>
+<phrase id="P10">Elle voulait un petit chat noir et blanc.</phrase>
+<phrase id="P11">Le seul animal dont personne n'avoit voulu jusque là ne l'était pas mais elle l'aima tout de suite.</phrase>
+<phrase id="P12">Ce fut ce petit chat roux.</phrase>
+<phrase id="P13">Souvent, pour s'amuser, les hommes d'équipage prennent des albatros, vastes oiseaux des mers, qui suivent, indolents compagnons de voyage, le navire glissant sur les gouffres amers.</phrase>
+<phrase id="P14">Pour s'amuser, souvent, les hommes d'équipage prennent des albatros, qui suivent, indolents compagnons de voyage, le navire glissant sur les gouffres amers.</phrase>
+<phrase id="P15">Les hommes d'équipage prennent parfois des albatros, qui suivent, indolents compagnons de voyage, le navire glissant sur les gouffres amers.</phrase>
+<phrase id="P16">Les hommes d'équipage prennent parfois des albatros ! Les hommes d'équipage prennent parfois des albatros ! Les hommes d'équipage prennent parfois des albatros ! Les hommes d'équipage prennent parfois des albatros ! Les hommes d'équipage prennent parfois des albatros ! Les hommes d'équipage prennent parfois des albatros !</phrase>
+</texte>
+
+<relation idSource="P1" idCible="P2" tags="beau,aujourd'hui,chaud"/>
+<relation idSource="P2" idCible="P3" tags="agréable,beau"/>
+<relation idSource="P2" idCible="P4" tags="gentil,chat"/>
+<relation idSource="P3" idCible="P4" tags="dire,autres"/>
+<relation idSource="P4" idCible="P5" tags="chat,bizarre"/>
+<relation idSource="P5" idCible="P6" tags="chat,race"/>
+<relation idSource="P8" idCible="P9" tags="fille,animal"/>
+<relation idSource="P8" idCible="P10" tags="vouloir,petit"/>
+<relation idSource="P8" idCible="P11" tags="animal,vouloir"/>
+<relation idSource="P9" idCible="P11" tags="aimer,animal"/>
+<relation idSource="P13" idCible="P14" tags="souvent,amuser,homme,équipage,prendre,albatros,suivre,indolent,compagnon,navire,voyage,glisser,gouffre,amer"/>
+<relation idSource="P13" idCible="P15" tags="homme,équipage,prendre,albatros,suivre,indolent,compagnon,navire,voyage,glisser,gouffre,amer"/>
+<relation idSource="P13" idCible="P16" tags="homme,équipage,prendre,albatros"/>
+<relation idSource="P14" idCible="P15" tags="homme,équipage,prendre,albatros,suivre,indolent,compagnon,navire,voyage,glisser,gouffre,amer"/>
+<relation idSource="P14" idCible="P16" tags="homme,équipage,prendre,albatros"/>
+<relation idSource="P15" idCible="P16" tags="homme,équipage,prendre,parfois,albatros"/>
+</rep>
