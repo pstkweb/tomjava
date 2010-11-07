@@ -1,11 +1,13 @@
 package modele;
+import java.awt.Color;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.Random;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class Transformer extends DefaultHandler {
+public class Transformation extends DefaultHandler {
 
 	private Hashtable<String, String> phrases;
 	private LinkedList<Relation> relations;
@@ -14,8 +16,9 @@ public class Transformer extends DefaultHandler {
 	private String idSource;
 	private String idCible;
 	private String tags;
+	private Random tirage;
 
-	public Transformer() {
+	public Transformation() {
 		super();
 		this.phrases = new Hashtable<String, String>();
 		this.relations = new LinkedList<Relation>();
@@ -24,6 +27,7 @@ public class Transformer extends DefaultHandler {
 		this.idSource = "";
 		this.idCible = "";
 		this.tags = "";
+		this.tirage = new Random();
 	}// constructeur
 
 	public void startElement(String uri, String name, String qualif, Attributes at) {
@@ -31,7 +35,10 @@ public class Transformer extends DefaultHandler {
 			id = at.getValue(0);
 		}
 		if(name.equals("relation")){
-			relations.add(new Relation(at.getValue(0), at.getValue(1), at.getValue(2)));
+			Color col = new Color(	Math.abs(tirage.nextInt())%256,
+	    		    				Math.abs(tirage.nextInt())%256,
+	    		    				Math.abs(tirage.nextInt())%256);
+			relations.add(new Relation(at.getValue(0), at.getValue(1), at.getValue(2), col));
 		}
 	}
 
