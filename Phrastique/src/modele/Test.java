@@ -12,14 +12,8 @@ public class Test {
 		System.out.println(test.getTrans().getRelations().toString());
 		for(Enumeration<String> e = test.getTrans().getPhrases().elements(); e.hasMoreElements();){
 			String phrase = e.nextElement();
-			if(phrase.length() > 50){
-				int i = 50;
-				while(phrase.charAt(i) != ' '){
-					i--;
-				}
-				String phrase1 = phrase.substring(0, i);
-				System.out.println(phrase1);
-			}
+			char c = phrase.charAt(phrase.length()-1);
+			System.out.println(c);	
 		}
 	}
 }
