@@ -18,7 +18,10 @@ public class VueTextuelle extends JPanel {
 		FlowLayout bl=new FlowLayout(FlowLayout.CENTER);
 		this.setLayout(bl);
 		this.setBackground(Color.WHITE);
-		this.setPreferredSize(new Dimension(800,800));
+		Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		int hauteur = (int)tailleEcran.getHeight();
+		int largeur = (int)tailleEcran.getWidth();
+		this.setPreferredSize(new Dimension((int)(largeur*0.6),(int)(hauteur*0.95)));
 	}
 	
 	public void paintComponent(Graphics g){
