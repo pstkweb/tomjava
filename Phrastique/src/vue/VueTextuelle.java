@@ -1,70 +1,93 @@
 package vue;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.util.Enumeration;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import modele.Recuperation;
+import modele.Relation;
 
-@SuppressWarnings("serial")
+
 public class VueTextuelle extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Recuperation donnees = new Recuperation("exemple1.xml");
+	
 	
 	public VueTextuelle(){
 		super();
-		FlowLayout bl=new FlowLayout(FlowLayout.CENTER);
-		this.setLayout(bl);
 		this.setBackground(Color.WHITE);
-		Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		int hauteur = (int)tailleEcran.getHeight();
-		int largeur = (int)tailleEcran.getWidth();
-		this.setPreferredSize(new Dimension((int)(largeur*0.6),(int)(hauteur*0.95)));
+		//this.setPreferredSize(new Dimension(500,500));
+		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		dessinerRelations(donnees);
+		dessinerPhrases(donnees);
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		dessinerPhrases(g, donnees);
 	}
 	
-	public void dessinerPhrases(Graphics g, Recuperation donnees){
-		int i = 0;
-		int debutRect = 0;
-		for( Enumeration<String> e = donnees.getTrans().getPhrases().elements() ; e.hasMoreElements();){
-			String phrase = e.nextElement();
-			int nbLignes = 0;
-			if(g.getFontMetrics().stringWidth(phrase) > super.getWidth()*0.6){
-				String testTaille = phrase;
-				while(g.getFontMetrics().stringWidth(phrase) > super.getWidth()*0.6){
-					while(g.getFontMetrics().stringWidth(testTaille)-g.getFontMetrics().charWidth(phrase.charAt(testTaille.length()-1)) 
-							> super.getWidth()*0.6 || phrase.charAt(testTaille.length()-1) != ' ')
-					{
-						String temp = testTaille.substring(0, testTaille.length()-1);
-						testTaille = temp;
-					}
-					String phrase1 = phrase.substring(0, testTaille.length()-1);
-					g.drawString(phrase1, super.getWidth()/2-g.getFontMetrics().stringWidth(phrase1)/2, 100+i);
-					nbLignes++;
-					i += g.getFontMetrics().getHeight();
-					String phrase2 = phrase.substring(testTaille.length());
-					phrase = phrase2;
-				}
-				g.drawString( phrase,  super.getWidth()/2-g.getFontMetrics().stringWidth(phrase)/2, 100+i);
-				nbLignes++; 
-				g.drawRoundRect((int) (super.getWidth()/2-super.getWidth()*0.3-2) , 85+debutRect , 
-						(int) (super.getWidth()*0.6+2) , g.getFontMetrics().getHeight()*nbLignes+3 , 15 , 20);
-				debutRect += nbLignes*g.getFontMetrics().getHeight()+15;
-				i += g.getFontMetrics().getHeight()+15;
-			}
-			else{
-				g.drawString( phrase , super.getWidth()/2-g.getFontMetrics().stringWidth(phrase)/2, 100+i);
-				g.drawRoundRect((int) (super.getWidth()/2-super.getWidth()*0.3-2) , 85+i,
-						(int) (super.getWidth()*0.6+2),g.getFontMetrics().getHeight()+3, 15, 20);
-				debutRect += g.getFontMetrics().getHeight()+15;
-				i += g.getFontMetrics().getHeight()+15;
-			}
+	public void dessinerPhrases(Recuperation donnees){
+		Box bPhrase = new Box(BoxLayout.Y_AXIS);
+		for(Enumeration<String> e = donnees.getTrans().getPhrases().keys(); e.hasMoreElements();){
+			String key = e.nextElement();
+			JTextPane t = new JTextPane();
+			
+
+			StyledDocument doc = t.getStyledDocument();	
+			MutableAttributeSet center = new SimpleAttributeSet();		
+			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+			MutableAttributeSet taille = new SimpleAttributeSet();
+			StyleConstants.setFontSize(taille, 14);
+			doc.setParagraphAttributes(0, 0, center, false);
+			doc.setParagraphAttributes(0, 0, taille, false);
+			t.setText(donnees.getTrans().getPhrases().get(key));
+			t.setEditable(false);
+			t.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
+					BorderFactory.createLoweredBevelBorder()),BorderFactory.createEmptyBorder(2, 2, 2, 2)));
+			
+			bPhrase.add(t);
+			bPhrase.add(Box.createVerticalStrut(20));
 		}
+		this.add(bPhrase);
+	}
+	
+	public void dessinerRelations(Recuperation donnees){
+		Box bRelation = new Box(BoxLayout.Y_AXIS);
+		for(Relation rel : donnees.getTrans().getRelations()){
+			JTextPane p = new JTextPane();
+			StyledDocument doc = p.getStyledDocument();	
+			MutableAttributeSet center = new SimpleAttributeSet();		
+			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+			MutableAttributeSet taille = new SimpleAttributeSet();
+			StyleConstants.setFontSize(taille, 14);
+			doc.setParagraphAttributes(0, 0, center, false);
+			doc.setParagraphAttributes(0, 0, taille, false);
+			p.setText(rel.getTags());
+			
+			bRelation.add(p);
+			bRelation.add(Box.createVerticalStrut(50));
+		}
+		this.add(bRelation);
 	}
 }
