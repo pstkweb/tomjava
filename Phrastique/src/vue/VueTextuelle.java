@@ -2,25 +2,18 @@ package vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.util.Enumeration;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.Position;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.View;
 
 import modele.Recuperation;
 import modele.Relation;
@@ -38,8 +31,8 @@ public class VueTextuelle extends JPanel {
 		super();
 		this.setBackground(Color.WHITE);
 		//this.setPreferredSize(new Dimension(500,500));
-		this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-		dessinerRelations(donnees);
+		this.setLayout(new BorderLayout());
+		//dessinerRelations(donnees);
 		dessinerPhrases(donnees);
 	}
 	
@@ -48,12 +41,12 @@ public class VueTextuelle extends JPanel {
 	}
 	
 	public void dessinerPhrases(Recuperation donnees){
-		Box bPhrase = new Box(BoxLayout.Y_AXIS);
+		JPanel phrases = new JPanel();
+		phrases.setLayout(null);
+		int posY = 0;
 		for(Enumeration<String> e = donnees.getTrans().getPhrases().keys(); e.hasMoreElements();){
 			String key = e.nextElement();
 			JTextPane t = new JTextPane();
-			
-
 			StyledDocument doc = t.getStyledDocument();	
 			MutableAttributeSet center = new SimpleAttributeSet();		
 			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -65,15 +58,27 @@ public class VueTextuelle extends JPanel {
 			t.setEditable(false);
 			t.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
 					BorderFactory.createLoweredBevelBorder()),BorderFactory.createEmptyBorder(2, 2, 2, 2)));
+			phrases.add(t);
+			//test de ouf
+			Position end = t.getDocument().getEndPosition();
+			String mama;
+			try {
+				mama = t.getText(0,t.getText().length());
+				System.out.println(mama);
+			} catch (BadLocationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			System.out.println(end);
 			
-			bPhrase.add(t);
-			bPhrase.add(Box.createVerticalStrut(20));
+			//fin
+			t.setBounds(0, posY, 500, 30);
+			posY += 35;
 		}
-		this.add(bPhrase);
+		this.add(phrases, BorderLayout.CENTER);
 	}
 	
 	public void dessinerRelations(Recuperation donnees){
-		Box bRelation = new Box(BoxLayout.Y_AXIS);
 		for(Relation rel : donnees.getTrans().getRelations()){
 			JTextPane p = new JTextPane();
 			StyledDocument doc = p.getStyledDocument();	
@@ -85,9 +90,7 @@ public class VueTextuelle extends JPanel {
 			doc.setParagraphAttributes(0, 0, taille, false);
 			p.setText(rel.getTags());
 			
-			bRelation.add(p);
-			bRelation.add(Box.createVerticalStrut(50));
+			this.add(p, BorderLayout.LINE_START);
 		}
-		this.add(bRelation);
 	}
 }
