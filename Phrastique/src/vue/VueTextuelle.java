@@ -7,14 +7,10 @@ import java.util.Enumeration;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.MutableAttributeSet;
-import javax.swing.text.Position;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import javax.swing.text.View;
-
 import modele.Recuperation;
 import modele.Relation;
 
@@ -59,21 +55,9 @@ public class VueTextuelle extends JPanel {
 			t.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
 					BorderFactory.createLoweredBevelBorder()),BorderFactory.createEmptyBorder(2, 2, 2, 2)));
 			phrases.add(t);
-			//test de ouf
-			Position end = t.getDocument().getEndPosition();
-			String mama;
-			try {
-				mama = t.getText(0,t.getText().length());
-				System.out.println(mama);
-			} catch (BadLocationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			System.out.println(end);
-			
-			//fin
-			t.setBounds(0, posY, 500, 30);
-			posY += 35;
+			int nbLignes = t.getText().length()/74 + 1;
+			t.setBounds(0, posY, 500, t.getPreferredSize().height*nbLignes - (nbLignes-1)*12);
+			posY += t.getBounds().height+10;
 		}
 		this.add(phrases, BorderLayout.CENTER);
 	}
