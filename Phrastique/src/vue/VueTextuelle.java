@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.Enumeration;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -12,6 +11,8 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+
+import modele.Phrase;
 import modele.Recuperation;
 import modele.Relation;
 
@@ -24,16 +25,21 @@ public class VueTextuelle extends JPanel {
 	private Recuperation donnees = new Recuperation("exemple1.xml");
 	private static final Dimension taillePanel = new Dimension(2000,1000);
 	private static final int largeurPhrase = 500;
+	JPanel phrases;
+	JPanel relations;
 	
 	
 	/**
 	 * Creer le JPanel qui contient la vue Textuelle, ce JPanel a une taille defini en statique
+	 * ainsi que les deux JPanel qui contiendront les phrases et les relations
 	 * 
 	 */
 	public VueTextuelle(){
 		super(null);
 		//dessinerRelations(donnees);
 		dessinerPhrases(donnees);
+		phrases = new JPanel(null);
+		relations = new JPanel(null);
 		this.setPreferredSize(taillePanel);
 	}
 	
@@ -44,15 +50,16 @@ public class VueTextuelle extends JPanel {
 	/**
 	 * @param donnees
 	 * 
-	 * 
+	 * rempli le JPanel phrases contenant la liste des phrases du modele, ce JPanel n'utilise pas de 
+	 * layout manager il est positionner statiquement au mileu du JPanel vueTextuelle, les phrases 
+	 * sont misent dans des JTextPane.
 	 */
 	public void dessinerPhrases(Recuperation donnees){
-		JPanel phrases = new JPanel();
+		
 		phrases.setBackground(Color.LIGHT_GRAY);
-		phrases.setLayout(null);
 		int posY = 50;
-		for(Enumeration<String> e = donnees.getTrans().getPhrases().keys(); e.hasMoreElements();){
-			String key = e.nextElement();
+		
+		for(Phrase phrase : donnees.getTrans().getPhrases()){
 			JTextPane t = new JTextPane();
 			StyledDocument doc = t.getStyledDocument();	
 			MutableAttributeSet center = new SimpleAttributeSet();		
@@ -61,12 +68,12 @@ public class VueTextuelle extends JPanel {
 			StyleConstants.setFontSize(taille, 14);
 			doc.setParagraphAttributes(0, 0, center, false);
 			doc.setParagraphAttributes(0, 0, taille, false);
-			t.setText(donnees.getTrans().getPhrases().get(key));
+			t.setText(phrase.getId()+" : "+phrase.getContenu());
 			t.setEditable(false);
 			t.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
 					BorderFactory.createLoweredBevelBorder()),BorderFactory.createEmptyBorder(2, 2, 2, 2)));
 			phrases.add(t);
-			int nbLignes = t.getText().length()/74 + 1;
+			int nbLignes = t.getText().length()/76 + 1;
 			t.setBounds(0, posY, largeurPhrase, t.getPreferredSize().height*nbLignes - (nbLignes-1)*12);
 			posY += t.getBounds().height+10;
 		}
@@ -76,8 +83,6 @@ public class VueTextuelle extends JPanel {
 	}
 	
 	public void dessinerRelations(Recuperation donnees){
-		JPanel relations = new JPanel();
-		relations.setLayout(null);
 		for(Relation rel : donnees.getTrans().getRelations()){
 			JTextPane p = new JTextPane();
 			StyledDocument doc = p.getStyledDocument();	

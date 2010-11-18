@@ -1,6 +1,5 @@
 package modele;
 import java.awt.Color;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -9,7 +8,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class Transformation extends DefaultHandler {
 
-	private Hashtable<String, String> phrases;
+	private LinkedList<Phrase> phrases;
 	private LinkedList<Relation> relations;
 	private String id;
 	private String phrase;
@@ -20,7 +19,7 @@ public class Transformation extends DefaultHandler {
 
 	public Transformation() {
 		super();
-		this.phrases = new Hashtable<String, String>();
+		this.phrases = new LinkedList<Phrase>();
 		this.relations = new LinkedList<Relation>();
 		this.id = "";
 		this.phrase = "";
@@ -44,7 +43,7 @@ public class Transformation extends DefaultHandler {
 
 	public void endElement(String uri, String name, String qualif){
 		if(name.equals("phrase")){
-			phrases.put(id, phrase);
+			phrases.add(new Phrase(id, phrase));
 			id = "";
 			phrase = "";
 		}
@@ -66,11 +65,11 @@ public class Transformation extends DefaultHandler {
 		}
 	}
 
-	public void setPhrases(Hashtable<String, String> phrases) {
+	public void setPhrases(LinkedList<Phrase> phrases) {
 		this.phrases = phrases;
 	}
 
-	public Hashtable<String, String> getPhrases() {
+	public LinkedList<Phrase> getPhrases() {
 		return phrases;
 	}
 
