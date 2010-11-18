@@ -26,6 +26,10 @@ public class VueTextuelle extends JPanel {
 	private static final int largeurPhrase = 500;
 	
 	
+	/**
+	 * Creer le JPanel qui contient la vue Textuelle, ce JPanel a une taille defini en statique
+	 * 
+	 */
 	public VueTextuelle(){
 		super(null);
 		//dessinerRelations(donnees);
@@ -37,6 +41,11 @@ public class VueTextuelle extends JPanel {
 		super.paintComponent(g);
 	}
 	
+	/**
+	 * @param donnees
+	 * 
+	 * 
+	 */
 	public void dessinerPhrases(Recuperation donnees){
 		JPanel phrases = new JPanel();
 		phrases.setBackground(Color.LIGHT_GRAY);
