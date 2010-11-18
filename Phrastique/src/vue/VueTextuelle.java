@@ -2,8 +2,11 @@ package vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.Hashtable;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -25,8 +28,8 @@ public class VueTextuelle extends JPanel {
 	private Recuperation donnees = new Recuperation("exemple1.xml");
 	private static final Dimension taillePanel = new Dimension(2000,1000);
 	private static final int largeurPhrase = 500;
-	JPanel phrases;
-	JPanel relations;
+	private JPanel phrases = new JPanel(null);
+	private JPanel relations = new JPanel(null);
 	
 	
 	/**
@@ -36,10 +39,8 @@ public class VueTextuelle extends JPanel {
 	 */
 	public VueTextuelle(){
 		super(null);
-		//dessinerRelations(donnees);
 		dessinerPhrases(donnees);
-		phrases = new JPanel(null);
-		relations = new JPanel(null);
+		dessinerRelations(donnees);
 		this.setPreferredSize(taillePanel);
 	}
 	
@@ -55,7 +56,6 @@ public class VueTextuelle extends JPanel {
 	 * sont misent dans des JTextPane.
 	 */
 	public void dessinerPhrases(Recuperation donnees){
-		
 		phrases.setBackground(Color.LIGHT_GRAY);
 		int posY = 50;
 		
@@ -83,6 +83,12 @@ public class VueTextuelle extends JPanel {
 	}
 	
 	public void dessinerRelations(Recuperation donnees){
+		Hashtable<String, Component> phrase = new Hashtable<String, Component>();
+		
+		for(Component ph : phrases.getComponents()){
+			phrase.put(ph.getName(), ph);
+		}
+		
 		for(Relation rel : donnees.getTrans().getRelations()){
 			JTextPane p = new JTextPane();
 			StyledDocument doc = p.getStyledDocument();	
@@ -94,8 +100,12 @@ public class VueTextuelle extends JPanel {
 			doc.setParagraphAttributes(0, 0, taille, false);
 			p.setText(rel.getTags());
 			relations.add(p);
-			p.setBounds(0, 0, 30, 30);
+			if(phrases.getComponentCount() > 0){
+				p.setBounds(0, phrase.get(rel.getIdSource()).getY(), 100, 100);
+			}
 		}
-		this.add(relations, BorderLayout.LINE_START);
+		this.add(relations);
+		
+		relations.setBounds(taillePanel.width/4, 0, taillePanel.width/4, taillePanel.height);
 	}
 }
