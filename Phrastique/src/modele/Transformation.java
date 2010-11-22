@@ -34,10 +34,15 @@ public class Transformation extends DefaultHandler {
 			id = at.getValue(0);
 		}
 		if(name.equals("relation")){
-			Color col = new Color(	Math.abs(tirage.nextInt())%256,
+			Color couleur = new Color(	Math.abs(tirage.nextInt())%256,
 	    		    				Math.abs(tirage.nextInt())%256,
 	    		    				Math.abs(tirage.nextInt())%256);
-			relations.add(new Relation(at.getValue(0), at.getValue(1), at.getValue(2), col));
+			StringBuilder tags = new StringBuilder(at.getValue(2));
+			for(int i=0 ; i<tags.length() ; i++){
+				if(tags.charAt(i) == ',')
+					tags.insert(i+1, ' ');
+			}
+			relations.add(new Relation(at.getValue(0), at.getValue(1), tags.toString(), couleur));
 		}
 	}
 
