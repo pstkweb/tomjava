@@ -14,6 +14,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import modele.BordureArrondi;
 import modele.Phrase;
 import modele.Recuperation;
 import modele.Relation;
@@ -29,9 +30,6 @@ public class VueTextuelle extends JPanel {
 	private static final int largeurPhrase = 500;
 	private static final int largeurRelation = 200;
 	private static final int espacementPhrase = 20;
-	private JPanel jPhrases = new JPanel(null);
-	private JPanel jRelationsGauche = new JPanel(null);
-	private JPanel jRelationsDroite = new JPanel(null);
 	
 	
 	/**
@@ -48,6 +46,12 @@ public class VueTextuelle extends JPanel {
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		for(Component comp : this.getComponents()){
+			if(comp.getName().equals("Relation")){
+				BordureArrondi bord = new BordureArrondi(Color.BLACK, 200, 100);
+				bord.paintBorder(comp, g, comp.getX(), comp.getY(), comp.getWidth(), comp.getHeight());
+			}
+		}
 	}
 	
 	/**
@@ -58,9 +62,7 @@ public class VueTextuelle extends JPanel {
 	 * sont misent dans des JTextPane.
 	 */
 	public void dessinerPhrases(Recuperation donnees){
-		jPhrases.setBackground(Color.LIGHT_GRAY);
 		int posY = 50;
-		
 		for(Phrase p : donnees.getTrans().getPhrases()){
 			JTextPane textPanePhrase = new JTextPane();
 			StyledDocument doc = textPanePhrase.getStyledDocument();	
@@ -75,24 +77,25 @@ public class VueTextuelle extends JPanel {
 			textPanePhrase.setName(p.getId());
 			textPanePhrase.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
 					BorderFactory.createLoweredBevelBorder()),BorderFactory.createEmptyBorder(2, 2, 2, 2)));
-			jPhrases.add(textPanePhrase);
+			this.add(textPanePhrase);
 			int nbLignes = textPanePhrase.getText().length()/76 + 1;
-			textPanePhrase.setBounds(0, posY, largeurPhrase, textPanePhrase.getPreferredSize().height*nbLignes - (nbLignes-1)*12);
+			textPanePhrase.setBounds(taillePanel.width/2-largeurPhrase/2, posY, largeurPhrase, textPanePhrase.getPreferredSize().height*nbLignes - (nbLignes-1)*12);
 			posY += textPanePhrase.getBounds().height+espacementPhrase;
 		}
-		this.add(jPhrases);
 		
-		jPhrases.setBounds(taillePanel.width/2-largeurPhrase/2, 0, largeurPhrase, taillePanel.height);
 	}
 	
 	public void dessinerRelations(Recuperation donnees){
 		Hashtable<String, Component> phrases = new Hashtable<String, Component>();
-		
-		for(Component ph : jPhrases.getComponents()){
+				
+		for(Component ph : this.getComponents()){
 			phrases.put(ph.getName(), ph);
 		}
+		boolean position = true; // position a gauche
 		for(Relation rel : donnees.getTrans().getRelations()){
 			JTextPane textPaneRel = new JTextPane();
+			textPaneRel.setName("Relation");
+			textPaneRel.setBackground(Color.WHITE);
 			StyledDocument doc = textPaneRel.getStyledDocument();	
 			MutableAttributeSet center = new SimpleAttributeSet();		
 			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -103,22 +106,21 @@ public class VueTextuelle extends JPanel {
 			textPaneRel.setEditable(false);
 			textPaneRel.setText(rel.getTags());
 			int nbLignes = textPaneRel.getText().length()/30 + 1;
-			if(jRelationsGauche.getComponentCount()>jRelationsDroite.getComponentCount()){
-				jRelationsDroite.add(textPaneRel);
-			}else{
-				jRelationsGauche.add(textPaneRel);
-			}
-			//System.out.println(pos);
-			if(jPhrases.getComponentCount() > 0){
-				textPaneRel.setBounds(0,((phrases.get(rel.getIdCible()).getY()-espacementPhrase)
+			if(position == true){
+				this.add(textPaneRel);
+				textPaneRel.setBounds(taillePanel.width/4-largeurRelation/2,((phrases.get(rel.getIdCible()).getY()-espacementPhrase)
 						+phrases.get(rel.getIdCible()).getY())/2
 						-(textPaneRel.getPreferredSize().height*nbLignes-(nbLignes-1)*4)/2 , largeurRelation, 
 						textPaneRel.getPreferredSize().height*nbLignes - (nbLignes-1)*4);
+				position = false;
+			}else{
+				this.add(textPaneRel);
+				textPaneRel.setBounds(taillePanel.width*3/4-largeurRelation/2,((phrases.get(rel.getIdCible()).getY()-espacementPhrase)
+						+phrases.get(rel.getIdCible()).getY())/2
+						-(textPaneRel.getPreferredSize().height*nbLignes-(nbLignes-1)*4)/2 , largeurRelation, 
+						textPaneRel.getPreferredSize().height*nbLignes - (nbLignes-1)*4);
+				position = true;
 			}
 		}
-		this.add(jRelationsGauche);
-		this.add(jRelationsDroite);
-		jRelationsGauche.setBounds(jPhrases.getX()-largeurRelation, 0, largeurRelation, taillePanel.height);
-		jRelationsDroite.setBounds(jPhrases.getX()+500, 0, largeurRelation, taillePanel.height);
 	}
 }
