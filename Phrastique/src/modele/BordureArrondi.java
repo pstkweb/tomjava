@@ -14,16 +14,12 @@ import javax.swing.border.Border;
 public class BordureArrondi implements Border {  
 	
 	private Color couleur;
-	private int largeurArc;
-	private int hauteurArc;
 	
 	
 	
 	
-	public BordureArrondi(Color couleur, int largeurArc, int hauteurArc)  {
+	public BordureArrondi(Color couleur)  {
 		this.couleur = couleur;
-		this.largeurArc = largeurArc;
-		this.hauteurArc = hauteurArc;
 	}  
  	
 	

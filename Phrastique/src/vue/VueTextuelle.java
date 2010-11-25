@@ -7,8 +7,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Hashtable;
-import java.util.LinkedList;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -29,7 +27,7 @@ public class VueTextuelle extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Recuperation donnees = new Recuperation("exemple1.xml");
-	private static final Dimension taillePanel = new Dimension(2000,1000);
+	private static final Dimension taillePanel = new Dimension(2000,1500);
 	private static final int largeurPhrase = 500;
 	private static final int largeurRelation = 200;
 	private static final int espacementPhrase = 20;
@@ -50,11 +48,47 @@ public class VueTextuelle extends JPanel {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		for(Component comp : this.getComponents()){
-			if(comp.getName().equals("Relation")){
-				BordureArrondi bord = new BordureArrondi(Color.BLACK, 200, 100);
+			if(comp.getName().equals("Relation") && comp instanceof JTextPane){
+				BordureArrondi bord = new BordureArrondi(Color.BLACK);
 				bord.paintBorder(comp, g, comp.getX(), comp.getY(), comp.getWidth(), comp.getHeight());
 				passerPointille(g);
-				g.drawLine(comp.getX(), comp.getY()+comp.getHeight()/2-5, 600, 50);
+				Relation rel;
+				int i = 0;
+				do{
+					rel = donnees.getTrans().getRelations().get(i);
+					i++;
+				}while(!((JTextPane) comp).getText().equals(rel.getTags()));
+				int j = 0;
+				Component phrase1 = null;
+				Component phrase2 = null;
+				do {
+					
+					if (this.getComponent(j).getName().equals(rel.getIdCible())) {
+						phrase2 = this.getComponent(j);
+					}
+					if (this.getComponent(j).getName().equals(rel.getIdSource())) {
+						phrase1 = this.getComponent(j);
+					}
+					j++;
+				}while(!(this.getComponent(j) instanceof JTextPane) || phrase1 == null || phrase2 == null );
+				
+				if(comp.getX() < phrase1.getX()){
+					g.drawLine(comp.getX()+comp.getWidth(), comp.getY()+comp.getHeight()/2-5,
+							phrase1.getX(), phrase1.getY()+phrase1.getHeight()/2);
+				}
+				else{
+					g.drawLine(comp.getX(), comp.getY()+comp.getHeight()/2-5,
+							phrase1.getX()+phrase1.getWidth(), phrase1.getY()+phrase1.getHeight()/2);
+				}
+				
+				if(comp.getX() < phrase2.getX()){
+					g.drawLine(comp.getX()+comp.getWidth(), comp.getY()+comp.getHeight()/2-5,
+							phrase2.getX(), phrase2.getY()+phrase2.getHeight()/2);
+				}
+				else{
+					g.drawLine(comp.getX(), comp.getY()+comp.getHeight()/2-5,
+							phrase2.getX()+phrase2.getWidth(), phrase2.getY()+phrase2.getHeight()/2);
+				}
 				passerPlein(g);
 			}
 		}
@@ -108,9 +142,7 @@ public class VueTextuelle extends JPanel {
 	}
 	
 	public void dessinerRelations(Recuperation donnees){
-		Hashtable<String, Component> phrases = new Hashtable<String, Component>();
-		LinkedList<Liaison> liaisons = new LinkedList<Liaison>();
-				
+		Hashtable<String, Component> phrases = new Hashtable<String, Component>();	
 		for(Component ph : this.getComponents()){
 			phrases.put(ph.getName(), ph);
 		}
