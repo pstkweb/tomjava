@@ -25,21 +25,21 @@ public class BordureArrondi implements Border {
 		this.largeurArc = largeurArc;
 		this.hauteurArc = hauteurArc;
 	}  
- 
-	
-	
-	
+ 	
 	
 	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height)  {
-        g.setColor(this.couleur);//ou une autre couleur que tu peux rendre paramétrable
+       
         int adjustX = 1;
         //int adjustY = 5;//pour ajuster le dessin en x et y
         int adjustW = 1;//idem pour width et height
-        int adjustH = 50;
+        int adjustH = 10;
         //pour eviter les escalier sur l'arrondi
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.drawOval(x, y, width, height);
+        g.setColor(Color.WHITE);
+        g2.fillOval(x, y-adjustH, width, height+adjustH);
+        g.setColor(this.couleur);//ou une autre couleur que tu peux rendre paramétrable
+        g2.drawOval(x, y-adjustH, width, height+adjustH);
 	}  
 	
 	

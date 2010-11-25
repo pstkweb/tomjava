@@ -1,10 +1,13 @@
 package vue;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Hashtable;
+import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -50,8 +53,27 @@ public class VueTextuelle extends JPanel {
 			if(comp.getName().equals("Relation")){
 				BordureArrondi bord = new BordureArrondi(Color.BLACK, 200, 100);
 				bord.paintBorder(comp, g, comp.getX(), comp.getY(), comp.getWidth(), comp.getHeight());
+				passerPointille(g);
+				g.drawLine(comp.getX(), comp.getY()+comp.getHeight()/2-5, 600, 50);
+				passerPlein(g);
 			}
 		}
+		
+	}
+	
+	public Graphics2D passerPointille(Graphics g){
+		Graphics2D g2d = (Graphics2D) g;
+		float epaisseur = 3; /** taille de la ligne */
+		float[] style = {10,5}; /** les pointillés seront 2 fois plus long que les blancs */
+		g2d.setStroke( new BasicStroke(epaisseur, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
+				10.0f, style, 0 ));
+		return g2d;
+	}
+	
+	public Graphics passerPlein(Graphics g){
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.setStroke(new BasicStroke());
+		return g;
 	}
 	
 	/**
@@ -87,6 +109,7 @@ public class VueTextuelle extends JPanel {
 	
 	public void dessinerRelations(Recuperation donnees){
 		Hashtable<String, Component> phrases = new Hashtable<String, Component>();
+		LinkedList<Liaison> liaisons = new LinkedList<Liaison>();
 				
 		for(Component ph : this.getComponents()){
 			phrases.put(ph.getName(), ph);
@@ -95,7 +118,7 @@ public class VueTextuelle extends JPanel {
 		for(Relation rel : donnees.getTrans().getRelations()){
 			JTextPane textPaneRel = new JTextPane();
 			textPaneRel.setName("Relation");
-			textPaneRel.setBackground(Color.WHITE);
+			textPaneRel.setOpaque(false);
 			StyledDocument doc = textPaneRel.getStyledDocument();	
 			MutableAttributeSet center = new SimpleAttributeSet();		
 			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
