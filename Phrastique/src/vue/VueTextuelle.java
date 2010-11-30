@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Hashtable;
+import java.util.LinkedList;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -21,7 +23,7 @@ import modele.Recuperation;
 import modele.Relation;
 
 
-public class VueTextuelle extends JPanel {
+public class VueTextuelle extends JPanel{
 	/**
 	 * 
 	 */
@@ -98,7 +100,7 @@ public class VueTextuelle extends JPanel {
 	public Graphics2D passerPointille(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
 		float epaisseur = 3; /** taille de la ligne */
-		float[] style = {10,5}; /** les pointillés seront 2 fois plus long que les blancs */
+		float[] style = {10,5}; /** les pointillï¿½s seront 2 fois plus long que les blancs */
 		g2d.setStroke( new BasicStroke(epaisseur, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
 				10.0f, style, 0 ));
 		return g2d;
@@ -173,9 +175,21 @@ public class VueTextuelle extends JPanel {
 				textPaneRel.setBounds(taillePanel.width*3/4-largeurRelation/2,((phrases.get(rel.getIdCible()).getY()-espacementPhrase)
 						+phrases.get(rel.getIdCible()).getY())/2
 						-(textPaneRel.getPreferredSize().height*nbLignes-(nbLignes-1)*4)/2 , largeurRelation, 
-						textPaneRel.getPreferredSize().height*nbLignes - (nbLignes-1)*4);
+						textPaneRel.getPreferredSize().height*nbLignes - (nbLignes-1)*4+5);
 				position = true;
 			}
 		}
+	}
+	
+	public LinkedList<Component> getComposantsGraphique(){
+		LinkedList<Component> liste = new LinkedList<Component>();
+		
+		for(Component e : this.getComponents()){
+			if(e.getName().equals("Relation")){
+				liste.add(e);
+			}
+		}
+		
+		return liste;
 	}
 }

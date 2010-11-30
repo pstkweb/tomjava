@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import vue.VueTextuelle;
+import controleur.ControleTextuelle;;
 
 /**
  * @author Thomas
@@ -24,7 +25,8 @@ public class CreerFenetre extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel vueTextuelle;
+	private VueTextuelle vueTextuelle;
+	private ControleTextuelle contTexte;
 	
 	/**
 	 * créer un objet vueTextuelle, le met dans un JScrollPane et defini sa taille
@@ -32,7 +34,9 @@ public class CreerFenetre extends JPanel{
 	public CreerFenetre(){
 		super(new BorderLayout());
 		vueTextuelle = new VueTextuelle();
+		contTexte = new ControleTextuelle(vueTextuelle);
 		vueTextuelle.setBackground(Color.LIGHT_GRAY);
+		
 		JScrollPane scroller = new JScrollPane(vueTextuelle);
 		Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		double hauteur = tailleEcran.getHeight();
