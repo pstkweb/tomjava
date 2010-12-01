@@ -1,24 +1,28 @@
 package controleur;
 
 import java.awt.Component;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
-import javax.swing.JPanel;
-
 import vue.VueTextuelle;
 
 public class ControleTextuelle implements MouseListener, MouseMotionListener {
 	private VueTextuelle texte;
-	private LinkedList<Component> composants;
+	private LinkedList<Component> relations;
+	private Point positionDepart;
+	private Point positionClick;
 	
 	public ControleTextuelle(VueTextuelle texte){
 		this.texte = texte;
-		composants = texte.getComposantsGraphique();
+		this.relations = texte.getComposantsGraphique();
 		
-		for ( Component comp : composants){
+		this.positionDepart = new Point();
+		this.positionClick = new Point();
+		
+		for ( Component comp : relations){
 			comp.addMouseListener(this);
 			comp.addMouseMotionListener(this);
 		}
@@ -26,19 +30,61 @@ public class ControleTextuelle implements MouseListener, MouseMotionListener {
 	
 	@Override
 	public void mouseReleased(MouseEvent e){
-		e.getComponent().setBounds(e.getXOnScreen(), e.getYOnScreen(), e.getComponent().getWidth(), e.getComponent().getHeight());
-		texte.repaint();
+		/**
+		 * si composant au meme endroit qu'un autre composant
+		 * alors replacer à l'endroit de départ
+		 */
+		boolean possible = true;
+		Point positionRel = new Point(e.getComponent().getX()+e.getX()-positionClick.x, 
+				e.getComponent().getY()+e.getY()-positionClick.y);
+		Point positionComp;
+		int i = 0;
+		int relX = positionRel.x;
+		int relY = positionRel.y;
+		int relWidth = e.getComponent().getWidth();
+		int relHeight = e.getComponent().getHeight();
+		
+		do{
+			positionComp = new Point(texte.getComponents()[i].getX(), texte.getComponents()[i].getY());
+			int compX = positionComp.x;
+			int compY = positionComp.y;
+			int compWidth = texte.getComponents()[i].getWidth();
+			int compHeight = texte.getComponents()[i].getHeight();
+			
+			/**
+			 * combinaisons possible pour le que le placement ne soit pas autorisé
+			 */
+			if((relX+relWidth > compX && relY+relHeight > compY && relY+relHeight < compY+compHeight) ||
+					(relX+relWidth > compX && relY > compY && relY < compY+compHeight) ||
+					(relX+relWidth > compX && relY > compY && relY+relHeight < compY+compHeight) ||
+					(relX > compX+compWidth && relY+relHeight > compY && relY+relHeight < compY+compHeight) ||
+					(relX > compX+compWidth && relY > compY && relY < compY+compHeight) ||
+					(relX > compX+compWidth && relY > compY && relY+relHeight < compY+compHeight)){
+				possible = false;	
+		}
+			i++;
+		}while(i<texte.getComponents().length && possible);
+		if(!possible){
+			e.getComponent().setLocation(positionDepart);
+			texte.repaint();
+		}
+		
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e){
-		e.getComponent().setBounds(e.getXOnScreen(), e.getYOnScreen(), e.getComponent().getWidth(), e.getComponent().getHeight());
+		e.getComponent().setLocation(e.getComponent().getX()+e.getX()-positionClick.x,
+										e.getComponent().getY()+e.getY()-positionClick.y);
 		texte.repaint();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e){
-		System.out.println("Mouse pressed");
+		/**
+		 * stocke la position de départ dans une variable pour être réutiliser si besoin
+		 */
+		positionDepart.move(e.getComponent().getX(), e.getComponent().getY());
+		positionClick.move(e.getX(),e.getY());
 	}
 
 	@Override

@@ -13,9 +13,8 @@ public class VueGraphe extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Recuperation donnees = new Recuperation("exemple1.xml");
-	private static final Dimension taillePanel = new Dimension(2000,1000);
-	private JPanel jPhrases = new JPanel(null);
-	private JPanel jRelations = new JPanel(null);
+	private static final Dimension taillePanel = new Dimension(2000,1500);
+	
 	
 	public VueGraphe(){
 		super(null);

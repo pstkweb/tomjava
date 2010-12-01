@@ -1,7 +1,6 @@
 package vue;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,7 +16,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import modele.BordureArrondi;
 import modele.Phrase;
 import modele.Recuperation;
 import modele.Relation;
@@ -38,7 +36,6 @@ public class VueTextuelle extends JPanel{
 	/**
 	 * Creer le JPanel qui contient la vue Textuelle, ce JPanel a une taille defini en statique
 	 * ainsi que les deux JPanel qui contiendront les phrases et les relations
-	 * 
 	 */
 	public VueTextuelle(){
 		super(null);
@@ -51,18 +48,28 @@ public class VueTextuelle extends JPanel{
 		super.paintComponent(g);
 		for(Component comp : this.getComponents()){
 			if(comp.getName().equals("Relation") && comp instanceof JTextPane){
-				BordureArrondi bord = new BordureArrondi(Color.BLACK);
-				bord.paintBorder(comp, g, comp.getX(), comp.getY(), comp.getWidth(), comp.getHeight());
-				passerPointille(g);
+				/**
+				 * Recherche la Relation du modèle qui correspond au JTextPane "étudié" 
+				 */
 				Relation rel;
 				int i = 0;
 				do{
 					rel = donnees.getTrans().getRelations().get(i);
 					i++;
 				}while(!((JTextPane) comp).getText().equals(rel.getTags()));
+				/**
+				 * Créer une bordure arrondi pour chaque JTextPane de Relation
+				 */
+				BordureArrondi bord = new BordureArrondi(rel.getCouleur());
+				bord.paintBorder(comp, g, comp.getX(), comp.getY(), comp.getWidth(), comp.getHeight());
+				/***/
+				passerPointille(g);
 				int j = 0;
 				Component phrase1 = null;
 				Component phrase2 = null;
+				/**
+				 * recherche les phrases 
+				 */
 				do {
 					
 					if (this.getComponent(j).getName().equals(rel.getIdCible())) {
@@ -97,15 +104,27 @@ public class VueTextuelle extends JPanel{
 		
 	}
 	
+	/**
+	 * @param g
+	 * @return
+	 * 
+	 * Passe l'objet Graphics g pour qu'il dessine plus large et en pointillé
+	 */
 	public Graphics2D passerPointille(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
 		float epaisseur = 3; /** taille de la ligne */
-		float[] style = {10,5}; /** les pointillï¿½s seront 2 fois plus long que les blancs */
+		float[] style = {10,5}; /** les pointillés seront 2 fois plus long que les blancs */
 		g2d.setStroke( new BasicStroke(epaisseur, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
 				10.0f, style, 0 ));
 		return g2d;
 	}
 	
+	/**
+	 * @param g
+	 * @return
+	 * 
+	 * repasse l'objet Graphics g en mode normal
+	 */
 	public Graphics passerPlein(Graphics g){
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setStroke(new BasicStroke());
@@ -115,9 +134,8 @@ public class VueTextuelle extends JPanel{
 	/**
 	 * @param donnees
 	 * 
-	 * rempli le JPanel phrases contenant la liste des phrases du modele, ce JPanel n'utilise pas de 
-	 * layout manager il est positionner statiquement au mileu du JPanel vueTextuelle, les phrases 
-	 * sont misent dans des JTextPane.
+	 *  créer pour chaque phrase du modèle donné en paramètre un JTextPane qui contient son id et
+	 *  la phrase et positionne celui-ci au centre du JPanel
 	 */
 	public void dessinerPhrases(Recuperation donnees){
 		int posY = 50;
@@ -143,6 +161,14 @@ public class VueTextuelle extends JPanel{
 		
 	}
 	
+	/**
+	 * @param donnees
+	 * 
+	 * Créé une Hashtable reliant chaque id de phrase au JTextPane lui correspondant. Créé un 
+	 * JTextPane contenant les tags de chaque Relation du modèle donné en paramètre puis les 
+	 * positionnent sur le JPanel alternativement à gauche et à droite des phrases et au milieu
+	 * des deux phrases.  
+	 */
 	public void dessinerRelations(Recuperation donnees){
 		Hashtable<String, Component> phrases = new Hashtable<String, Component>();	
 		for(Component ph : this.getComponents()){
