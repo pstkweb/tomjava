@@ -6,7 +6,6 @@ import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -36,7 +35,7 @@ public  class Vue extends JPanel {
 	
 	public void dessinerPhrases(Recuperation donnees){
 		for(Phrase p : donnees.getTrans().getPhrases()){
-			JTextPane textPanePhrase = new JTextPane();
+			JTextPanePhrase textPanePhrase = new JTextPanePhrase(p);
 			StyledDocument doc = textPanePhrase.getStyledDocument();	
 			MutableAttributeSet center = new SimpleAttributeSet();		
 			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -55,7 +54,7 @@ public  class Vue extends JPanel {
 	
 	public void dessinerRelations(Recuperation donnees){
 		for(Relation rel : donnees.getTrans().getRelations()){
-			JTextPane textPaneRel = new JTextPane();
+			JTextPaneRelation textPaneRel = new JTextPaneRelation(rel);
 			textPaneRel.setName("Relation");
 			textPaneRel.setOpaque(false);
 			StyledDocument doc = textPaneRel.getStyledDocument();	
@@ -71,22 +70,22 @@ public  class Vue extends JPanel {
 		}
 	}
 	
-	public LinkedList<JTextPane> getComposantsGraphiqueRelation(){
-		LinkedList<JTextPane> listeRelation = new LinkedList<JTextPane>();
+	public LinkedList<JTextPaneRelation> getComposantsGraphiqueRelation(){
+		LinkedList<JTextPaneRelation> listeRelation = new LinkedList<JTextPaneRelation>();
 		for(Component e : this.getComponents()){
-			if(e.getName().equals("Relation")){
-				listeRelation.add((JTextPane)e);
+			if(e instanceof JTextPaneRelation){
+				listeRelation.add((JTextPaneRelation) e);
 			}
 		}
 		
 		return listeRelation;
 	}
 		
-	public LinkedList<JTextPane> getComposantsGraphiquePhrases(){
-		LinkedList<JTextPane> listePhrases = new LinkedList<JTextPane>();
+	public LinkedList<JTextPanePhrase> getComposantsGraphiquePhrases(){
+		LinkedList<JTextPanePhrase> listePhrases = new LinkedList<JTextPanePhrase>();
 		for(Component e :this.getComponents()){
-			if(e.getName().startsWith("P")){
-				listePhrases.add((JTextPane)e);
+			if(e instanceof JTextPanePhrase){
+				listePhrases.add((JTextPanePhrase)e);
 			}
 		}
 		return listePhrases;

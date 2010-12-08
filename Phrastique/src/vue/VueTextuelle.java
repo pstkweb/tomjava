@@ -4,12 +4,13 @@ import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Hashtable;
+import java.awt.Point;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JTextPane;
+
 import modele.Recuperation;
-import modele.Relation;
 
 
 public class VueTextuelle extends Vue{
@@ -25,27 +26,20 @@ public class VueTextuelle extends Vue{
 	 */
 	public VueTextuelle(){
 		super();
-		ReDessinerPhrases();
+		reDessinerPhrases();
 		reDessinerRelations(this.getDonnees());
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+	
 		for(Component comp : this.getComponents()){
-			if(comp.getName().equals("Relation") && comp instanceof JTextPane){
-				/**
-				 * Recherche la Relation du modèle qui correspond au JTextPane "étudié" 
-				 */
-				Relation rel;
-				int i = 0;
-				do{
-					rel = this.getDonnees().getTrans().getRelations().get(i);
-					i++;
-				}while(!((JTextPane) comp).getText().equals(rel.getTags()));
+			if(comp instanceof JTextPaneRelation){
+								
 				/**
 				 * Créer une bordure arrondi pour chaque JTextPane de Relation
 				 */
-				BordureArrondi bord = new BordureArrondi(rel.getCouleur());
+				BordureArrondi bord = new BordureArrondi(((JTextPaneRelation) comp).getRelation().getCouleur());
 				bord.paintBorder(comp, g, comp.getX(), comp.getY(), comp.getWidth(), comp.getHeight());
 				/***/
 				passerPointille(g);
@@ -56,12 +50,13 @@ public class VueTextuelle extends Vue{
 				 * recherche les phrases 
 				 */
 				do {
-					
-					if (this.getComponent(j).getName().equals(rel.getIdCible())) {
-						phrase2 = this.getComponent(j);
-					}
-					if (this.getComponent(j).getName().equals(rel.getIdSource())) {
-						phrase1 = this.getComponent(j);
+					if(this.getComponent(j) instanceof JTextPanePhrase){
+						if (((JTextPanePhrase)this.getComponent(j)).getPhrase().getId().equals(((JTextPaneRelation)comp).getRelation().getIdCible())) {
+							phrase2 = this.getComponent(j);
+						}
+						if (((JTextPanePhrase)this.getComponent(j)).getPhrase().getId().equals(((JTextPaneRelation)comp).getRelation().getIdSource())) {
+							phrase1 = this.getComponent(j);
+						}
 					}
 					j++;
 				}while(!(this.getComponent(j) instanceof JTextPane) || phrase1 == null || phrase2 == null );
@@ -122,11 +117,11 @@ public class VueTextuelle extends Vue{
 	 *  créer pour chaque phrase du modèle donné en paramètre un JTextPane qui contient son id et
 	 *  la phrase et positionne celui-ci au centre du JPanel
 	 */
-	public void ReDessinerPhrases(){
-		LinkedList<JTextPane> listePhrase = this.getComposantsGraphiquePhrases();
+	public void reDessinerPhrases(){
+		LinkedList<JTextPanePhrase> listePhrase = this.getComposantsGraphiquePhrases();
 		int posY = 50;
 		for(int i=0; i<listePhrase.size(); i++){
-			int nbLignes = listePhrase.get(i).getText().length()/76 + 1;
+			int nbLignes = listePhrase.get(i).getText().length()/81 + 1;
 			listePhrase.get(i).setBounds(this.getTaillePanel().width/2-this.getLargeurPhrase()/2, posY, this.getLargeurPhrase(),
 					listePhrase.get(i).getPreferredSize().height*nbLignes - (nbLignes-1)*12);
 			posY += listePhrase.get(i).getBounds().height+getEspacementPhrase();
@@ -142,31 +137,32 @@ public class VueTextuelle extends Vue{
 	 * des deux phrases.  
 	 */
 	public void reDessinerRelations(Recuperation donnees){
-		LinkedList<JTextPane> listeRelation = this.getComposantsGraphiqueRelation();
-		Hashtable<String, Component> phrases = new Hashtable<String, Component>();	
-		for(Component ph : this.getComponents()){
-			phrases.put(ph.getName(), ph);
-		}
-		Relation relation = donnees.getTrans().getRelations().get(0);
+		LinkedList<JTextPaneRelation> listeRelation = this.getComposantsGraphiqueRelation();
+		LinkedList<JTextPanePhrase> listePhrase = this.getComposantsGraphiquePhrases();
+		JTextPanePhrase phraseSource = listePhrase.get(0);
+		JTextPanePhrase phraseCible = listePhrase.get(0);
 		
 		boolean position = true; // position a gauche
-		System.out.println(listeRelation);
 		for(int i=0;i<listeRelation.size(); i++){
-			for(Relation rel : donnees.getTrans().getRelations()){
-				if(rel.getTags().equals(listeRelation.get(i).getText())){
-					relation = rel;
+			for(int j=0;j<listePhrase.size(); j++){
+				if(listeRelation.get(i).getRelation().getIdSource().equals(listePhrase.get(j).getPhrase().getId())){
+					phraseSource = listePhrase.get(j);
+				}
+				if(listeRelation.get(i).getRelation().getIdCible().equals(listePhrase.get(j).getPhrase().getId())){
+					phraseCible = listePhrase.get(j);
 				}
 			}
 			int nbLignes = listeRelation.get(i).getText().length()/30 + 1;
 			if(position == true){
 				listeRelation.get(i).setBounds(this.getTaillePanel().width/4-this.getLargeurRelation()/2,
-						((phrases.get(relation.getIdCible()).getY()-getEspacementPhrase())+phrases.get(relation.getIdCible()).getY())/2
+						(phraseSource.getY()+phraseSource.getHeight()+phraseCible.getY())/2
 						-(listeRelation.get(i).getPreferredSize().height*nbLignes-(nbLignes-1)*4)/2 , this.getLargeurRelation(), 
 						listeRelation.get(i).getPreferredSize().height*nbLignes - (nbLignes-1)*4);
 				position = false;
+				
 			}else{
 				listeRelation.get(i).setBounds(this.getTaillePanel().width*3/4-this.getLargeurRelation()/2,
-						((phrases.get(relation.getIdCible()).getY()-getEspacementPhrase())+phrases.get(relation.getIdCible()).getY())/2
+						(phraseSource.getY()+phraseSource.getHeight()+phraseCible.getY())/2
 						-(listeRelation.get(i).getPreferredSize().height*nbLignes-(nbLignes-1)*4)/2 , this.getLargeurRelation(), 
 						listeRelation.get(i).getPreferredSize().height*nbLignes - (nbLignes-1)*4+5);
 				position = true;

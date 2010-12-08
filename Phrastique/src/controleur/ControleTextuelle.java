@@ -7,16 +7,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
-import javax.swing.JTextPane;
-
+import vue.JTextPaneRelation;
 import vue.VueTextuelle;
 
 public class ControleTextuelle implements MouseListener, MouseMotionListener {
 	private VueTextuelle texte;
-	private LinkedList<JTextPane> relations;
+	private LinkedList<JTextPaneRelation> relations;
 	private Point positionDepart;
 	private Point positionClick;
 	private Point positionAnterieure = null;
+	private static final int margeSuperposition = 5;
 	
 	public ControleTextuelle(VueTextuelle texte){
 		this.texte = texte;
@@ -33,45 +33,6 @@ public class ControleTextuelle implements MouseListener, MouseMotionListener {
 	
 	@Override
 	public void mouseReleased(MouseEvent e){
-		/**
-		 * si composant au meme endroit qu'un autre composant
-		 * alors replacer à l'endroit de départ
-		 */
-		boolean possible = true;
-		Point positionRel = new Point(e.getComponent().getX()+e.getX()-positionClick.x, 
-				e.getComponent().getY()+e.getY()-positionClick.y);
-		Point positionComp;
-		int i = 0;
-		int relX = positionRel.x;
-		int relY = positionRel.y;
-		int relWidth = e.getComponent().getWidth();
-		int relHeight = e.getComponent().getHeight();
-		
-		do{
-			positionComp = new Point(texte.getComponents()[i].getX(), texte.getComponents()[i].getY());
-			int compX = positionComp.x;
-			int compY = positionComp.y;
-			int compWidth = texte.getComponents()[i].getWidth();
-			int compHeight = texte.getComponents()[i].getHeight();
-			
-			/**
-			 * combinaisons possible pour le que le placement ne soit pas autorisé
-			 */
-			if((relX+relWidth > compX && relY+relHeight > compY && relY+relHeight < compY+compHeight) ||
-					(relX+relWidth > compX && relY > compY && relY < compY+compHeight) ||
-					(relX+relWidth > compX && relY > compY && relY+relHeight < compY+compHeight) ||
-					(relX > compX+compWidth && relY+relHeight > compY && relY+relHeight < compY+compHeight) ||
-					(relX > compX+compWidth && relY > compY && relY < compY+compHeight) ||
-					(relX > compX+compWidth && relY > compY && relY+relHeight < compY+compHeight)){
-				possible = false;	
-			}
-			i++;
-		}while(i<texte.getComponents().length && possible);
-		if(!possible){
-			e.getComponent().setLocation(positionDepart);
-			texte.repaint();
-		}
-		positionAnterieure = null;
 	}
 
 	@Override
@@ -85,46 +46,49 @@ public class ControleTextuelle implements MouseListener, MouseMotionListener {
 				e.getComponent().getY()+e.getY()-positionClick.y);
 		Point positionComp;
 		int i = 0;
-		int relX = positionRel.x;
-		int relY = positionRel.y;
-		int relWidth = e.getComponent().getWidth();
-		int relHeight = e.getComponent().getHeight();
+		int relX = positionRel.x-margeSuperposition;
+		int relY = positionRel.y-margeSuperposition;
+		int relWidth = e.getComponent().getWidth()+2*margeSuperposition;
+		int relHeight = e.getComponent().getHeight()+2*margeSuperposition;
 		
 		do{
 			positionComp = new Point(texte.getComponents()[i].getX(), texte.getComponents()[i].getY());
-			int compX = positionComp.x;
-			int compY = positionComp.y;
-			int compWidth = texte.getComponents()[i].getWidth();
-			int compHeight = texte.getComponents()[i].getHeight();
+			int compX = positionComp.x-margeSuperposition;
+			int compY = positionComp.y-margeSuperposition;
+			int compWidth = texte.getComponents()[i].getWidth()+2*margeSuperposition;
+			int compHeight = texte.getComponents()[i].getHeight()+2*margeSuperposition;
 			
 			/**
 			 * combinaisons possible pour le que le placement ne soit pas autorisé
 			 */
-			if((relX+relWidth > compX && relY+relHeight > compY && relY+relHeight < compY+compHeight) ||
-					(relX+relWidth > compX && relY > compY && relY < compY+compHeight) ||
-					(relX+relWidth > compX && relY > compY && relY+relHeight < compY+compHeight) ||
-					(relX > compX+compWidth && relY+relHeight > compY && relY+relHeight < compY+compHeight) ||
-					(relX > compX+compWidth && relY > compY && relY < compY+compHeight) ||
-					(relX > compX+compWidth && relY > compY && relY+relHeight < compY+compHeight)){
+			if((relX+relWidth > compX && relX+relWidth < texte.getTaillePanel().width/2 
+					&& relY+relHeight >= compY && relY+relHeight <= compY+compHeight) ||
+					(relX+relWidth > compX && relX+relWidth < texte.getTaillePanel().width/2 
+							&& relY >= compY && relY <= compY+compHeight) ||
+					(relX+relWidth > compX && relX+relWidth < texte.getTaillePanel().width/2 
+							&& relY <= compY && relY+relHeight >= compY+compHeight) ||
+					(relX < compX+compWidth && relX+relWidth > texte.getTaillePanel().width/2 
+							&& relY+relHeight >= compY && relY+relHeight <= compY+compHeight) ||
+					(relX < compX+compWidth && relX+relWidth > texte.getTaillePanel().width/2 
+							&& relY >= compY && relY <= compY+compHeight)||
+						(relX < compX+compWidth && relX+relWidth > texte.getTaillePanel().width/2 
+								&& relY <= compY && relY+relHeight >= compY+compHeight)){
 				possible = false;
 			}
 			if(e.getComponent().equals(texte.getComponents()[i])){
 				possible = true;
 			}
 			i++;
-		}while(i<texte.getComponents().length && possible);
+		}while(i<texte.getComponentCount() && possible);
 		if(!possible){
 			if(positionAnterieure == null){
-				System.out.println("impossible Départ");
 				e.getComponent().setLocation(positionDepart);
 			}
 			else{
-				System.out.println("impossible Antérieure");
 				e.getComponent().setLocation(positionAnterieure);
 			}
 		}
 		else{
-			System.out.println("possible");
 			positionAnterieure = positionRel;
 			e.getComponent().setLocation(positionRel);
 		}

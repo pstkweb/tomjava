@@ -1,6 +1,5 @@
 package modele;
 import java.awt.Color;
-import java.util.Hashtable;
 import java.util.LinkedList;
 
 import org.xml.sax.Attributes;
