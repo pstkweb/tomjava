@@ -7,18 +7,20 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
+import javax.swing.JTextPane;
+
 import vue.VueTextuelle;
 
 public class ControleTextuelle implements MouseListener, MouseMotionListener {
 	private VueTextuelle texte;
-	private LinkedList<Component> relations;
+	private LinkedList<JTextPane> relations;
 	private Point positionDepart;
 	private Point positionClick;
 	private Point positionAnterieure = null;
 	
 	public ControleTextuelle(VueTextuelle texte){
 		this.texte = texte;
-		this.relations = texte.getComposantsGraphique();
+		this.relations = texte.getComposantsGraphiqueRelation();
 		
 		this.positionDepart = new Point();
 		this.positionClick = new Point();

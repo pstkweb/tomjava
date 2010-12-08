@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import vue.Vue;
 import vue.VueGraphe;
 import vue.VueTextuelle;
 import controleur.ControleFenetre;
@@ -28,9 +29,11 @@ public class CreerFenetre extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private VueTextuelle vueTextuelle;
 	private VueGraphe vueGraphe;
+	private Vue vueUtilise;
 	private ControleTextuelle contTexte;
 	private ControleFenetre contFenetre;
 	private JScrollPane scroller;
+	private Point positionScroller;
 	
 	/**
 	 * créer un objet vueTextuelle, le met dans un JScrollPane et defini sa taille
@@ -38,24 +41,28 @@ public class CreerFenetre extends JPanel{
 	public CreerFenetre(){
 		super(new BorderLayout());
 		vueTextuelle = new VueTextuelle();
-		setVueGraphe(new VueGraphe());
+		vueGraphe = new VueGraphe();
 		contTexte = new ControleTextuelle(vueTextuelle);
 		contFenetre = new ControleFenetre(this);
-		vueTextuelle.setBackground(Color.LIGHT_GRAY);
-		scroller = new JScrollPane(vueTextuelle);
+		scroller = new JScrollPane();
 		Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		double hauteur = tailleEcran.getHeight();
 		double largeur = tailleEcran.getWidth();
         scroller.setPreferredSize(new Dimension((int)(largeur*0.6),(int)(hauteur*0.88)));
-        scroller.getViewport().setViewPosition(new Point(550,0));
         scroller.getVerticalScrollBar().setUnitIncrement(10);
+        this.setContenu(vueTextuelle);
         add(scroller, BorderLayout.CENTER);
 	}
 	
-	
-
-	public void setContenu(JPanel contenu){
-		this.scroller.setViewportView(contenu);
+	public void setContenu(Vue contenu){
+		vueUtilise = contenu;
+		scroller.setViewportView(vueUtilise);
+		positionScroller = new Point(vueUtilise.getTaillePanel().width/2 - 
+    			scroller.getPreferredSize().width/2 , 0);
+        vueUtilise.setBackground(Color.LIGHT_GRAY);
+        scroller.getViewport().setViewPosition(positionScroller);
+        
+		this.repaint();
 	}
 	
 	public JMenuBar creerMenu(){
@@ -87,6 +94,8 @@ public class CreerFenetre extends JPanel{
 		//creation du Menu
 		JMenuBar menuBar = contentPane.creerMenu(); 		
 		fenetre.setJMenuBar(menuBar);
+		
+		
 		fenetre.pack();
 		fenetre.setLocationRelativeTo(null);
         fenetre.setVisible(true);

@@ -2,35 +2,21 @@ package vue;
 
 import java.awt.BasicStroke;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 import javax.swing.JTextPane;
-import javax.swing.text.MutableAttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
-
-import modele.Phrase;
 import modele.Recuperation;
 import modele.Relation;
 
 
-public class VueTextuelle extends JPanel{
+public class VueTextuelle extends Vue{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Recuperation donnees = new Recuperation("exemple1.xml");
-	private static final Dimension taillePanel = new Dimension(2000,1500);
-	private static final int largeurPhrase = 500;
-	private static final int largeurRelation = 200;
-	private static final int espacementPhrase = 20;
 	
 	
 	/**
@@ -38,10 +24,9 @@ public class VueTextuelle extends JPanel{
 	 * ainsi que les deux JPanel qui contiendront les phrases et les relations
 	 */
 	public VueTextuelle(){
-		super(null);
-		dessinerPhrases(donnees);
-		dessinerRelations(donnees);
-		this.setPreferredSize(taillePanel);
+		super();
+		ReDessinerPhrases();
+		reDessinerRelations(this.getDonnees());
 	}
 	
 	public void paintComponent(Graphics g){
@@ -54,7 +39,7 @@ public class VueTextuelle extends JPanel{
 				Relation rel;
 				int i = 0;
 				do{
-					rel = donnees.getTrans().getRelations().get(i);
+					rel = this.getDonnees().getTrans().getRelations().get(i);
 					i++;
 				}while(!((JTextPane) comp).getText().equals(rel.getTags()));
 				/**
@@ -137,28 +122,15 @@ public class VueTextuelle extends JPanel{
 	 *  créer pour chaque phrase du modèle donné en paramètre un JTextPane qui contient son id et
 	 *  la phrase et positionne celui-ci au centre du JPanel
 	 */
-	public void dessinerPhrases(Recuperation donnees){
+	public void ReDessinerPhrases(){
+		LinkedList<JTextPane> listePhrase = this.getComposantsGraphiquePhrases();
 		int posY = 50;
-		for(Phrase p : donnees.getTrans().getPhrases()){
-			JTextPane textPanePhrase = new JTextPane();
-			StyledDocument doc = textPanePhrase.getStyledDocument();	
-			MutableAttributeSet center = new SimpleAttributeSet();		
-			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-			MutableAttributeSet taille = new SimpleAttributeSet();
-			StyleConstants.setFontSize(taille, 14);
-			doc.setParagraphAttributes(0, 0, center, false);
-			doc.setParagraphAttributes(0, 0, taille, false);
-			textPanePhrase.setText(p.getId()+" : "+p.getContenu());
-			textPanePhrase.setEditable(false);
-			textPanePhrase.setName(p.getId());
-			textPanePhrase.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),
-					BorderFactory.createLoweredBevelBorder()),BorderFactory.createEmptyBorder(2, 2, 2, 2)));
-			this.add(textPanePhrase);
-			int nbLignes = textPanePhrase.getText().length()/76 + 1;
-			textPanePhrase.setBounds(taillePanel.width/2-largeurPhrase/2, posY, largeurPhrase, textPanePhrase.getPreferredSize().height*nbLignes - (nbLignes-1)*12);
-			posY += textPanePhrase.getBounds().height+espacementPhrase;
+		for(int i=0; i<listePhrase.size(); i++){
+			int nbLignes = listePhrase.get(i).getText().length()/76 + 1;
+			listePhrase.get(i).setBounds(this.getTaillePanel().width/2-this.getLargeurPhrase()/2, posY, this.getLargeurPhrase(),
+					listePhrase.get(i).getPreferredSize().height*nbLignes - (nbLignes-1)*12);
+			posY += listePhrase.get(i).getBounds().height+getEspacementPhrase();
 		}
-		
 	}
 	
 	/**
@@ -169,53 +141,36 @@ public class VueTextuelle extends JPanel{
 	 * positionnent sur le JPanel alternativement à gauche et à droite des phrases et au milieu
 	 * des deux phrases.  
 	 */
-	public void dessinerRelations(Recuperation donnees){
+	public void reDessinerRelations(Recuperation donnees){
+		LinkedList<JTextPane> listeRelation = this.getComposantsGraphiqueRelation();
 		Hashtable<String, Component> phrases = new Hashtable<String, Component>();	
 		for(Component ph : this.getComponents()){
 			phrases.put(ph.getName(), ph);
 		}
+		Relation relation = donnees.getTrans().getRelations().get(0);
+		
 		boolean position = true; // position a gauche
-		for(Relation rel : donnees.getTrans().getRelations()){
-			JTextPane textPaneRel = new JTextPane();
-			textPaneRel.setName("Relation");
-			textPaneRel.setOpaque(false);
-			StyledDocument doc = textPaneRel.getStyledDocument();	
-			MutableAttributeSet center = new SimpleAttributeSet();		
-			StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-			MutableAttributeSet taille = new SimpleAttributeSet();
-			StyleConstants.setFontSize(taille, 12);
-			doc.setParagraphAttributes(0, 0, center, false);
-			doc.setParagraphAttributes(0, 0, taille, false);
-			textPaneRel.setEditable(false);
-			textPaneRel.setText(rel.getTags());
-			int nbLignes = textPaneRel.getText().length()/30 + 1;
+		System.out.println(listeRelation);
+		for(int i=0;i<listeRelation.size(); i++){
+			for(Relation rel : donnees.getTrans().getRelations()){
+				if(rel.getTags().equals(listeRelation.get(i).getText())){
+					relation = rel;
+				}
+			}
+			int nbLignes = listeRelation.get(i).getText().length()/30 + 1;
 			if(position == true){
-				this.add(textPaneRel);
-				textPaneRel.setBounds(taillePanel.width/4-largeurRelation/2,((phrases.get(rel.getIdCible()).getY()-espacementPhrase)
-						+phrases.get(rel.getIdCible()).getY())/2
-						-(textPaneRel.getPreferredSize().height*nbLignes-(nbLignes-1)*4)/2 , largeurRelation, 
-						textPaneRel.getPreferredSize().height*nbLignes - (nbLignes-1)*4);
+				listeRelation.get(i).setBounds(this.getTaillePanel().width/4-this.getLargeurRelation()/2,
+						((phrases.get(relation.getIdCible()).getY()-getEspacementPhrase())+phrases.get(relation.getIdCible()).getY())/2
+						-(listeRelation.get(i).getPreferredSize().height*nbLignes-(nbLignes-1)*4)/2 , this.getLargeurRelation(), 
+						listeRelation.get(i).getPreferredSize().height*nbLignes - (nbLignes-1)*4);
 				position = false;
 			}else{
-				this.add(textPaneRel);
-				textPaneRel.setBounds(taillePanel.width*3/4-largeurRelation/2,((phrases.get(rel.getIdCible()).getY()-espacementPhrase)
-						+phrases.get(rel.getIdCible()).getY())/2
-						-(textPaneRel.getPreferredSize().height*nbLignes-(nbLignes-1)*4)/2 , largeurRelation, 
-						textPaneRel.getPreferredSize().height*nbLignes - (nbLignes-1)*4+5);
+				listeRelation.get(i).setBounds(this.getTaillePanel().width*3/4-this.getLargeurRelation()/2,
+						((phrases.get(relation.getIdCible()).getY()-getEspacementPhrase())+phrases.get(relation.getIdCible()).getY())/2
+						-(listeRelation.get(i).getPreferredSize().height*nbLignes-(nbLignes-1)*4)/2 , this.getLargeurRelation(), 
+						listeRelation.get(i).getPreferredSize().height*nbLignes - (nbLignes-1)*4+5);
 				position = true;
 			}
 		}
-	}
-	
-	public LinkedList<Component> getComposantsGraphique(){
-		LinkedList<Component> liste = new LinkedList<Component>();
-		
-		for(Component e : this.getComponents()){
-			if(e.getName().equals("Relation")){
-				liste.add(e);
-			}
-		}
-		
-		return liste;
 	}
 }

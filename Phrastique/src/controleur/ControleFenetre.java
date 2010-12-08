@@ -18,7 +18,10 @@ public class ControleFenetre implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(((JMenuItem)e.getSource()).getName().equals("vueGraphe")){
 			fenetre.setContenu(fenetre.getVueGraphe());
-		}	
+		}
+		else if(((JMenuItem)e.getSource()).getName().equals("vueTexte")){
+			fenetre.setContenu(fenetre.getVueTextuelle());
+		}
 	}
 
 }
