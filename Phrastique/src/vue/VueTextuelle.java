@@ -4,13 +4,9 @@ import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JTextPane;
-
-import modele.Recuperation;
 
 
 public class VueTextuelle extends Vue{
@@ -27,7 +23,7 @@ public class VueTextuelle extends Vue{
 	public VueTextuelle(){
 		super();
 		reDessinerPhrases();
-		reDessinerRelations(this.getDonnees());
+		reDessinerRelations();
 	}
 	
 	public void paintComponent(Graphics g){
@@ -136,7 +132,7 @@ public class VueTextuelle extends Vue{
 	 * positionnent sur le JPanel alternativement à gauche et à droite des phrases et au milieu
 	 * des deux phrases.  
 	 */
-	public void reDessinerRelations(Recuperation donnees){
+	public void reDessinerRelations(){
 		LinkedList<JTextPaneRelation> listeRelation = this.getComposantsGraphiqueRelation();
 		LinkedList<JTextPanePhrase> listePhrase = this.getComposantsGraphiquePhrases();
 		JTextPanePhrase phraseSource = listePhrase.get(0);
@@ -168,5 +164,16 @@ public class VueTextuelle extends Vue{
 				position = true;
 			}
 		}
+	}
+	
+	public boolean seTouche(JTextPaneRelation relation){
+		boolean res = false;
+		int i = 0;
+		LinkedList<JTextPaneRelation> listeRelation = this.getComposantsGraphiqueRelation();
+		while(i<listeRelation.size() && !res){
+			/*if(listeRelation.get(i).)*/
+			i++;
+		}
+		return res;
 	}
 }
