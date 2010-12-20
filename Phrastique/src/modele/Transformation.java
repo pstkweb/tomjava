@@ -1,12 +1,16 @@
 package modele;
-import java.awt.Color;
 import java.util.LinkedList;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ * Classe définissant le handler permettant de découper le fichier XML,
+ * contient aussi les Listes dans lesquels sont stockés les données.
+ * @author Thomas
+ *
+ */
 public class Transformation extends DefaultHandler {
-
 	private LinkedList<Phrase> phrases;
 	private LinkedList<Relation> relations;
 	private String id;
@@ -14,9 +18,10 @@ public class Transformation extends DefaultHandler {
 	private String idSource;
 	private String idCible;
 	private String tags;
-	private LinkedList<Color> couleurs;
 	
-	
+	/**
+	 * Constructeur d'un transformation
+	 */
 	public Transformation() {
 		super();
 		this.phrases = new LinkedList<Phrase>();
@@ -26,26 +31,20 @@ public class Transformation extends DefaultHandler {
 		this.idSource = "";
 		this.idCible = "";
 		this.tags = "";
-		this.couleurs = new LinkedList<Color>();
-		remplirListeCouleur(couleurs);
-	}// constructeur
+		
+	}
 
 	public void startElement(String uri, String name, String qualif, Attributes at) {
 		if(name.equals("phrase")){
 			id = at.getValue(0);
 		}
 		if(name.equals("relation")){
-			if(couleurs.isEmpty()){
-				remplirListeCouleur(couleurs);
-			}
-			Color couleur = couleurs.get(0);
 			StringBuilder tags = new StringBuilder(at.getValue(2));
 			for(int i=0 ; i<tags.length() ; i++){
 				if(tags.charAt(i) == ',')
 					tags.insert(i+1, ' ');
 			}
-			relations.add(new Relation(at.getValue(0), at.getValue(1), tags.toString(), couleur));
-			couleurs.remove(0);
+			relations.add(new Relation(at.getValue(0), at.getValue(1), tags.toString()));
 		}
 	}
 
@@ -72,19 +71,7 @@ public class Transformation extends DefaultHandler {
 			phrase = new String(temp);
 		}
 	}
-	
-	public void remplirListeCouleur(LinkedList<Color> couleurs){
-		couleurs.add(Color.BLACK);
-		couleurs.add(Color.BLUE);
-		couleurs.add(Color.CYAN);
-		couleurs.add(Color.DARK_GRAY);
-		couleurs.add(Color.GREEN);
-		couleurs.add(Color.MAGENTA);
-		couleurs.add(Color.ORANGE);
-		couleurs.add(Color.PINK);
-		couleurs.add(Color.RED);
-		couleurs.add(Color.YELLOW);
-	}
+
 
 	public void setPhrases(LinkedList<Phrase> phrases) {
 		this.phrases = phrases;

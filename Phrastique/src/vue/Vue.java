@@ -15,10 +15,13 @@ import modele.Phrase;
 import modele.Recuperation;
 import modele.Relation;
 
+/**
+ * Classe définissant une Vue qui est un JPanel contenant les données du modele misent
+ * dans des JTextPane.
+ * @author Thomas
+ *
+ */
 public  class Vue extends JPanel {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Recuperation donnees = new Recuperation("exemple1.xml");
 	private static final Dimension taillePanel = new Dimension(2000,1500);
@@ -26,6 +29,9 @@ public  class Vue extends JPanel {
 	private static final int largeurRelation = 200;
 	private static final int espacementPhrase = 20;
 	
+	/**
+	 *  Constructeur d'une Vue en utilisant les méthodes dessinerPhrases et dessinnerRelations
+	 */
 	public Vue(){
 		super(null);
 		this.setPreferredSize(taillePanel);
@@ -33,6 +39,12 @@ public  class Vue extends JPanel {
 		dessinerRelations(donnees);
 	}
 	
+	/**
+	 * Méthode permettant d'ajouter les phrases au JPanel en mettant chaque phrase du modele
+	 * dans des JTextPanePhrase et en ajoutant ces JTextPanePhrase au JPanel
+	 * @param donnees
+	 * les données contenant les phrases et les relations du modele
+	 */
 	public void dessinerPhrases(Recuperation donnees){
 		for(Phrase p : donnees.getTrans().getPhrases()){
 			JTextPanePhrase textPanePhrase = new JTextPanePhrase(p);
@@ -52,10 +64,18 @@ public  class Vue extends JPanel {
 		}
 	}
 	
+	/**
+	 * Méthode permettant d'ajouter les relations au JPanel en mettant chaque relation du modele
+	 * dans des JTextPaneRelation et en ajoutant ces JTextPaneRelation au JPanel
+	 * @param donnees
+	 * les données contenant les phrases et les relations du modele
+	 */
 	public void dessinerRelations(Recuperation donnees){
+		int i = 1;
 		for(Relation rel : donnees.getTrans().getRelations()){
 			JTextPaneRelation textPaneRel = new JTextPaneRelation(rel);
-			textPaneRel.setName("Relation");
+			textPaneRel.setName("Relation "+i);
+			i++;
 			textPaneRel.setOpaque(false);
 			StyledDocument doc = textPaneRel.getStyledDocument();	
 			MutableAttributeSet center = new SimpleAttributeSet();		
@@ -70,6 +90,11 @@ public  class Vue extends JPanel {
 		}
 	}
 	
+	/**
+	 * Donne la liste des JTextPaneRelation du JPanel.
+	 * @return
+	 * liste de JTextPaneRelation
+	 */
 	public LinkedList<JTextPaneRelation> getComposantsGraphiqueRelation(){
 		LinkedList<JTextPaneRelation> listeRelation = new LinkedList<JTextPaneRelation>();
 		for(Component e : this.getComponents()){
@@ -77,10 +102,14 @@ public  class Vue extends JPanel {
 				listeRelation.add((JTextPaneRelation) e);
 			}
 		}
-		
 		return listeRelation;
 	}
 		
+	/**
+	 * Donne la liste des JTextPanePhrase du JPanel
+	 * @return
+	 * liste de JTextPanePhrase
+	 */
 	public LinkedList<JTextPanePhrase> getComposantsGraphiquePhrases(){
 		LinkedList<JTextPanePhrase> listePhrases = new LinkedList<JTextPanePhrase>();
 		for(Component e :this.getComponents()){
@@ -93,26 +122,56 @@ public  class Vue extends JPanel {
 		
 	
 
+	/**
+	 * Donne les données
+	 * @return
+	 * les données
+	 */
 	public Recuperation getDonnees() {
 		return donnees;
 	}
 
+	/**
+	 * Modifie les données
+	 * @param donnees
+	 * les nouvelles données
+	 */
 	public void setDonnees(Recuperation donnees) {
 		this.donnees = donnees;
 	}
 
+	/**
+	 * Donne la taille du JPanel
+	 * @return
+	 * la taille du JPanel 
+	 */
 	public Dimension getTaillePanel() {
 		return taillePanel;
 	}
 
+	/**
+	 * Donne la largeur des phrases
+	 * @return
+	 * largeur des phrases
+	 */
 	public int getLargeurPhrase() {
 		return largeurPhrase;
 	}
 
+	/**
+	 * Donne la largeur des relations
+	 * @return
+	 * largeur relation
+	 */
 	public int getLargeurRelation() {
 		return largeurRelation;
 	}
 	
+	/**
+	 * Donne l'espacement entre les phrases
+	 * @return
+	 * espacement entre les phrases
+	 */
 	public int getEspacementPhrase() {
 		return espacementPhrase;
 	}

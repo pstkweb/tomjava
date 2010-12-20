@@ -10,6 +10,12 @@ import java.util.LinkedList;
 import vue.JTextPaneRelation;
 import vue.VueTextuelle;
 
+/**
+ * Classe controleur de la vue textuelle, elle implemente MouseListener, et MouseMotionListener afin
+ * de permettre à l'utilisateur d'interagir avec les composants contenus dans cette vue. 
+ * L'interaction se fait par glisser-déposer.
+ * @author Thomas
+ */
 public class ControleTextuelle implements MouseListener, MouseMotionListener {
 	private VueTextuelle texte;
 	private LinkedList<JTextPaneRelation> relations;
@@ -18,6 +24,13 @@ public class ControleTextuelle implements MouseListener, MouseMotionListener {
 	private Point positionAnterieure = null;
 	private static final int margeSuperposition = 5;
 	
+	/**
+	 * Creer un controleTextuelle contenant un objet VueTextuelle passé en paramètre. Contient
+	 * également une listes de relations pour laquelle on ajoute des listeners sur chacun
+	 * de ses éléments.
+	 * @param texte
+	 * la vue textuelle à mettre en place
+	 */
 	public ControleTextuelle(VueTextuelle texte){
 		this.texte = texte;
 		this.relations = texte.getComposantsGraphiqueRelation();

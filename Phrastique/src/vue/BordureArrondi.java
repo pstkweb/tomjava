@@ -11,11 +11,21 @@ import javax.swing.border.Border;
  
  
  
+/**
+ * Classe permettant de créer une bordure arrondie qui implemente Border
+ * @author Thomas
+ *
+ */
 public class BordureArrondi implements Border {  
 	
 	private Color couleur;
 	
 	
+	/**
+	 * Constructeur d'une bordure arrondie avec une couleur
+	 * @param couleur
+	 * couleur de la bordure
+	 */
 	public BordureArrondi(Color couleur)  {
 		this.couleur = couleur;
 	}  
