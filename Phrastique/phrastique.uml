@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_tp9AYAxNEeCHP_Y2VsOKxw">
+  <name xsi:nil="true"/>
+  <elementImport xmi:id="_uEFXoAxNEeCHP_Y2VsOKxw">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+  </elementImport>
+  <elementImport xmi:id="_uGAqQAxNEeCHP_Y2VsOKxw">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+  </elementImport>
+  <elementImport xmi:id="_uGxfQAxNEeCHP_Y2VsOKxw">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_uHsFQAxNEeCHP_Y2VsOKxw">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+  </elementImport>
+  <elementImport xmi:id="_uKx1gAxNEeCHP_Y2VsOKxw">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_t1dFwAxNEeCHP_Y2VsOKxw" name="controleur">
+    <packagedElement xmi:type="uml:Class" xmi:id="_t2KQYAxNEeCHP_Y2VsOKxw" name="ControleGraphe">
+      <ownedComment xmi:id="_t8NOAAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe controleur de la vue graphe, elle implemente MouseListener et MouseMotionListener afin 
+ * de permettre à l'utilisateur d'interagir avec les composants contenus dans cette vue. 
+ * L'interaction se fait par glisser-déposer.
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_uA0oQAxNEeCHP_Y2VsOKxw" name="graphe" visibility="private" type="_t9H0AAxNEeCHP_Y2VsOKxw" association="_uOjiQAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uDaCMAxNEeCHP_Y2VsOKxw" name="relations" visibility="private" type="_uDWX0AxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uDs9IAxNEeCHP_Y2VsOKxw" name="phrases" visibility="private" type="_uDpSwAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uDzq0AxNEeCHP_Y2VsOKxw" name="positionDepart" visibility="private" type="_uAWHIAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uD6_kAxNEeCHP_Y2VsOKxw" name="positionClick" visibility="private" type="_uAWHIAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uEBtQAxNEeCHP_Y2VsOKxw" name="positionAnterieure" visibility="private" type="_uAWHIAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uEJCAAxNEeCHP_Y2VsOKxw" name="margeSuperposition" visibility="private" isStatic="true" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_uEJCAQxNEeCHP_Y2VsOKxw" value="5"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_uEaHwAxNEeCHP_Y2VsOKxw" name="mouseDragged" visibility="public">
+        <ownedParameter xmi:id="_uEaHwQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uEdyIAxNEeCHP_Y2VsOKxw" name="mouseMoved" visibility="public">
+        <ownedParameter xmi:id="_uEdyIQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uEiDkAxNEeCHP_Y2VsOKxw" name="mouseClicked" visibility="public">
+        <ownedParameter xmi:id="_uEiDkQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uEmVAAxNEeCHP_Y2VsOKxw" name="mouseEntered" visibility="public">
+        <ownedParameter xmi:id="_uEmVAQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uEp_YAxNEeCHP_Y2VsOKxw" name="mouseExited" visibility="public">
+        <ownedParameter xmi:id="_uEp_YQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uEuQ0AxNEeCHP_Y2VsOKxw" name="mousePressed" visibility="public">
+        <ownedParameter xmi:id="_uEuQ0QxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uEx7MAxNEeCHP_Y2VsOKxw" name="mouseReleased" visibility="public">
+        <ownedParameter xmi:id="_uEx7MQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t8PqQAxNEeCHP_Y2VsOKxw" name="ControleTextuelle">
+      <ownedComment xmi:id="_t8Vw4AxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe controleur de la vue textuelle, elle implemente MouseListener, et MouseMotionListener afin
+ * de permettre à l'utilisateur d'interagir avec les composants contenus dans cette vue. 
+ * L'interaction se fait par glisser-déposer.
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_uE_WkAxNEeCHP_Y2VsOKxw" name="texte" visibility="private" type="_t8-DAAxNEeCHP_Y2VsOKxw" association="_uOkJUAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uFFdMAxNEeCHP_Y2VsOKxw" name="relations" visibility="private" type="_uDWX0AxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uFK8wAxNEeCHP_Y2VsOKxw" name="positionDepart" visibility="private" type="_uAWHIAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uFRDYAxNEeCHP_Y2VsOKxw" name="positionClick" visibility="private" type="_uAWHIAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uFXKAAxNEeCHP_Y2VsOKxw" name="positionAnterieure" visibility="private" type="_uAWHIAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uFdQoAxNEeCHP_Y2VsOKxw" name="margeSuperposition" visibility="private" isStatic="true" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_uFdQoQxNEeCHP_Y2VsOKxw" value="5"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_uFgT8AxNEeCHP_Y2VsOKxw" name="mouseReleased" visibility="public">
+        <ownedParameter xmi:id="_uFgT8QxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uFj-UAxNEeCHP_Y2VsOKxw" name="mouseDragged" visibility="public">
+        <ownedParameter xmi:id="_uFj-UQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uFnBoAxNEeCHP_Y2VsOKxw" name="mousePressed" visibility="public">
+        <ownedParameter xmi:id="_uFnBoQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uFqsAAxNEeCHP_Y2VsOKxw" name="mouseMoved" visibility="public">
+        <ownedParameter xmi:id="_uFqsAQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uFtvUAxNEeCHP_Y2VsOKxw" name="mouseClicked" visibility="public">
+        <ownedParameter xmi:id="_uFtvUQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uFxZsAxNEeCHP_Y2VsOKxw" name="mouseEntered" visibility="public">
+        <ownedParameter xmi:id="_uFxZsQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uF1EEAxNEeCHP_Y2VsOKxw" name="mouseExited" visibility="public">
+        <ownedParameter xmi:id="_uF1EEQxNEeCHP_Y2VsOKxw" name="e" type="_uAWHIgxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t8XmEAxNEeCHP_Y2VsOKxw" name="ControleFenetre">
+      <ownedComment xmi:id="_t8ZbQAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe controleur de la fenetre, elle implemente ActionListener pour réagir aux 
+ * actions sur le menu.
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_uF5VgAxNEeCHP_Y2VsOKxw" name="fenetre" visibility="private" type="_t8cekAxNEeCHP_Y2VsOKxw" association="_uOkJUgxNEeCHP_Y2VsOKxw"/>
+      <ownedOperation xmi:id="_uF-OAAxNEeCHP_Y2VsOKxw" name="actionPerformed" visibility="public">
+        <ownedParameter xmi:id="_uF-OAQxNEeCHP_Y2VsOKxw" name="e" type="_uAYjYAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOjiQAxNEeCHP_Y2VsOKxw" memberEnd="_uA0oQAxNEeCHP_Y2VsOKxw _uOjiQQxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOjiQQxNEeCHP_Y2VsOKxw" name="ControleGraphe" type="_t2KQYAxNEeCHP_Y2VsOKxw" association="_uOjiQAxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOkJUAxNEeCHP_Y2VsOKxw" memberEnd="_uE_WkAxNEeCHP_Y2VsOKxw _uOkJUQxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOkJUQxNEeCHP_Y2VsOKxw" name="ControleTextuelle" type="_t8PqQAxNEeCHP_Y2VsOKxw" association="_uOkJUAxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOkJUgxNEeCHP_Y2VsOKxw" memberEnd="_uF5VgAxNEeCHP_Y2VsOKxw _uGfycAxNEeCHP_Y2VsOKxw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_t8aCUAxNEeCHP_Y2VsOKxw" name="lancement">
+    <packagedElement xmi:type="uml:Class" xmi:id="_t8cekAxNEeCHP_Y2VsOKxw" name="CreerFenetre">
+      <ownedComment xmi:id="_t8gI8AxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe permettant de créer la fenetre de l'application 
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <generalization xmi:id="_uGADMAxNEeCHP_Y2VsOKxw" general="_uAaYkQxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uGDGgAxNEeCHP_Y2VsOKxw" name="serialVersionUID" visibility="private" isStatic="true" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_uGDGgQxNEeCHP_Y2VsOKxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uGH_AAxNEeCHP_Y2VsOKxw" name="vueTextuelle" visibility="private" type="_t8-DAAxNEeCHP_Y2VsOKxw" association="_uOkwYAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uGM3gAxNEeCHP_Y2VsOKxw" name="vueGraphe" visibility="private" type="_t9H0AAxNEeCHP_Y2VsOKxw" association="_uOlXcAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uGRwAAxNEeCHP_Y2VsOKxw" name="vueUtilise" visibility="private" type="_t8yc0AxNEeCHP_Y2VsOKxw" association="_uOlXcgxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uGWogAxNEeCHP_Y2VsOKxw" name="contTexte" visibility="private" type="_t8PqQAxNEeCHP_Y2VsOKxw" association="_uOl-gAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uGa58AxNEeCHP_Y2VsOKxw" name="contGraphe" visibility="private" type="_t2KQYAxNEeCHP_Y2VsOKxw" association="_uOl-ggxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uGfycAxNEeCHP_Y2VsOKxw" name="contFenetre" visibility="private" type="_t8XmEAxNEeCHP_Y2VsOKxw" association="_uOkJUgxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uGkD4AxNEeCHP_Y2VsOKxw" name="scroller" visibility="private" type="_uAaYkgxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uGo8YAxNEeCHP_Y2VsOKxw" name="positionScroller" visibility="private" type="_uAWHIAxNEeCHP_Y2VsOKxw"/>
+      <ownedOperation xmi:id="_uGrYoAxNEeCHP_Y2VsOKxw" name="setContenu" visibility="public">
+        <ownedComment xmi:id="_uGt04AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Méthode permettant de changer de vue en redefinissant le contenu du JScrollPane
+ * @param contenu 
+ * la vue va être mise en place
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uGrYoQxNEeCHP_Y2VsOKxw" name="contenu" type="_t8yc0AxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uGvDAAxNEeCHP_Y2VsOKxw" name="creerMenu" visibility="public">
+        <ownedComment xmi:id="_uGw4MAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * @returnUn menu contenant deux choix correspondant aux deux vues. 
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uGvDAQxNEeCHP_Y2VsOKxw" name="return" type="_uAaYkAxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uGytYAxNEeCHP_Y2VsOKxw" name="main" visibility="public" isStatic="true">
+        <ownedParameter xmi:id="_uGytYQxNEeCHP_Y2VsOKxw" name="args">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uGytYgxNEeCHP_Y2VsOKxw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uGytYwxNEeCHP_Y2VsOKxw"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uG1wsAxNEeCHP_Y2VsOKxw" name="setVueGraphe" visibility="public">
+        <ownedComment xmi:id="_uG9FcAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * changer la vue graphe
+ * @param vueGraphela vue graphe à mettre en place
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uG1wsQxNEeCHP_Y2VsOKxw" name="vueGraphe" type="_t9H0AAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uG9sgAxNEeCHP_Y2VsOKxw" name="getVueGraphe" visibility="public">
+        <ownedComment xmi:id="_uG_hsAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la vue graphe
+ * @returnla vue grpahe
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uG9sgQxNEeCHP_Y2VsOKxw" name="return" type="_t9H0AAxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uHAIwAxNEeCHP_Y2VsOKxw" name="getVueTextuelle" visibility="public">
+        <ownedComment xmi:id="_uHClAAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la vue textuelle
+ * @returnvue textuelle
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uHAIwQxNEeCHP_Y2VsOKxw" name="return" type="_t8-DAAxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uHDMEAxNEeCHP_Y2VsOKxw" name="setVueTextuelle" visibility="public">
+        <ownedComment xmi:id="_uHFBQAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie la vue textuelle
+ * @param vueTextuellela vue textuelle à mettre en place
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uHDMEQxNEeCHP_Y2VsOKxw" name="vueTextuelle" type="_t8-DAAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOkwYAxNEeCHP_Y2VsOKxw" memberEnd="_uGH_AAxNEeCHP_Y2VsOKxw _uOkwYQxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOkwYQxNEeCHP_Y2VsOKxw" name="CreerFenetre" type="_t8cekAxNEeCHP_Y2VsOKxw" association="_uOkwYAxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOlXcAxNEeCHP_Y2VsOKxw" memberEnd="_uGM3gAxNEeCHP_Y2VsOKxw _uOlXcQxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOlXcQxNEeCHP_Y2VsOKxw" name="CreerFenetre" type="_t8cekAxNEeCHP_Y2VsOKxw" association="_uOlXcAxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOlXcgxNEeCHP_Y2VsOKxw" memberEnd="_uGRwAAxNEeCHP_Y2VsOKxw _uOlXcwxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOlXcwxNEeCHP_Y2VsOKxw" name="CreerFenetre" type="_t8cekAxNEeCHP_Y2VsOKxw" association="_uOlXcgxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOl-gAxNEeCHP_Y2VsOKxw" memberEnd="_uGWogAxNEeCHP_Y2VsOKxw _uOl-gQxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOl-gQxNEeCHP_Y2VsOKxw" name="CreerFenetre" type="_t8cekAxNEeCHP_Y2VsOKxw" association="_uOl-gAxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOl-ggxNEeCHP_Y2VsOKxw" memberEnd="_uGa58AxNEeCHP_Y2VsOKxw _uOl-gwxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOl-gwxNEeCHP_Y2VsOKxw" name="CreerFenetre" type="_t8cekAxNEeCHP_Y2VsOKxw" association="_uOl-ggxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_t8gwAAxNEeCHP_Y2VsOKxw" name="modele">
+    <packagedElement xmi:type="uml:Class" xmi:id="_t8gwAQxNEeCHP_Y2VsOKxw" name="Transformation">
+      <ownedComment xmi:id="_t8kaYAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe définissant le handler permettant de découper le fichier XML,
+ * contient aussi les Listes dans lesquels sont stockés les données.
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <generalization xmi:id="_uHFoUAxNEeCHP_Y2VsOKxw" general="_uAcNwAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uHIroAxNEeCHP_Y2VsOKxw" name="phrases" visibility="private" type="_uHGPYAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uHNkIAxNEeCHP_Y2VsOKxw" name="relations" visibility="private" type="_uHLH4AxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uHR1kAxNEeCHP_Y2VsOKxw" name="id" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uHWuEAxNEeCHP_Y2VsOKxw" name="phrase" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uHa_gAxNEeCHP_Y2VsOKxw" name="idSource" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uHf4AAxNEeCHP_Y2VsOKxw" name="idCible" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uHkJcAxNEeCHP_Y2VsOKxw" name="tags" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_uHnMwAxNEeCHP_Y2VsOKxw" name="startElement" visibility="public">
+        <ownedParameter xmi:id="_uHnMwQxNEeCHP_Y2VsOKxw" name="uri">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uHnMwgxNEeCHP_Y2VsOKxw" name="name">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uHnMwwxNEeCHP_Y2VsOKxw" name="qualif">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uHnMxAxNEeCHP_Y2VsOKxw" name="at" type="_uAbmswxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uHppAAxNEeCHP_Y2VsOKxw" name="endElement" visibility="public">
+        <ownedParameter xmi:id="_uHppAQxNEeCHP_Y2VsOKxw" name="uri">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uHppAgxNEeCHP_Y2VsOKxw" name="name">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uHppAwxNEeCHP_Y2VsOKxw" name="qualif">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uHssUAxNEeCHP_Y2VsOKxw" name="characters" visibility="public">
+        <ownedParameter xmi:id="_uHssUQxNEeCHP_Y2VsOKxw" name="ch">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uHtTYAxNEeCHP_Y2VsOKxw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uHtTYQxNEeCHP_Y2VsOKxw"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uHtTYgxNEeCHP_Y2VsOKxw" name="start">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uHtTYwxNEeCHP_Y2VsOKxw" name="length">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uHvvoAxNEeCHP_Y2VsOKxw" name="setPhrases" visibility="public">
+        <ownedParameter xmi:id="_uHvvoQxNEeCHP_Y2VsOKxw" name="phrases" type="_uAWuMwxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uHyL4AxNEeCHP_Y2VsOKxw" name="getPhrases" visibility="public">
+        <ownedParameter xmi:id="_uHyL4QxNEeCHP_Y2VsOKxw" name="return" type="_uAWuMwxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uH8j8AxNEeCHP_Y2VsOKxw" name="getIdSource" visibility="public">
+        <ownedParameter xmi:id="_uH8j8QxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uH_AMAxNEeCHP_Y2VsOKxw" name="setIdSource" visibility="public">
+        <ownedParameter xmi:id="_uH_AMQxNEeCHP_Y2VsOKxw" name="idSource">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIBccAxNEeCHP_Y2VsOKxw" name="getIdCible" visibility="public">
+        <ownedParameter xmi:id="_uIBccQxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uID4sAxNEeCHP_Y2VsOKxw" name="setIdCible" visibility="public">
+        <ownedParameter xmi:id="_uID4sQxNEeCHP_Y2VsOKxw" name="idCible">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIGU8AxNEeCHP_Y2VsOKxw" name="getTags" visibility="public">
+        <ownedParameter xmi:id="_uIGU8QxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIJYQAxNEeCHP_Y2VsOKxw" name="setTags" visibility="public">
+        <ownedParameter xmi:id="_uIJYQQxNEeCHP_Y2VsOKxw" name="tags">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIL0gAxNEeCHP_Y2VsOKxw" name="getRelations" visibility="public">
+        <ownedParameter xmi:id="_uIL0gQxNEeCHP_Y2VsOKxw" name="return" type="_uAWuMwxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIOQwAxNEeCHP_Y2VsOKxw" name="setRelations" visibility="public">
+        <ownedParameter xmi:id="_uIOQwQxNEeCHP_Y2VsOKxw" name="relations" type="_uAWuMwxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIQtAAxNEeCHP_Y2VsOKxw" name="getPhrase" visibility="public">
+        <ownedParameter xmi:id="_uIQtAQxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uITwUAxNEeCHP_Y2VsOKxw" name="setPhrase" visibility="public">
+        <ownedParameter xmi:id="_uITwUQxNEeCHP_Y2VsOKxw" name="phrase">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t8lBcAxNEeCHP_Y2VsOKxw" name="Relation">
+      <ownedComment xmi:id="_t8ndsAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe définissant une relation, qui est un idSource, un idCible et des tags. 
+ * Elle possede aussi une couleur.
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_uIXasAxNEeCHP_Y2VsOKxw" name="idSource" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uIaeAAxNEeCHP_Y2VsOKxw" name="idCible" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uIeIYAxNEeCHP_Y2VsOKxw" name="tags" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uIhLsAxNEeCHP_Y2VsOKxw" name="couleur" visibility="private" type="_uAZxgAxNEeCHP_Y2VsOKxw"/>
+      <ownedOperation xmi:id="_uIjA4AxNEeCHP_Y2VsOKxw" name="getIdSource" visibility="public">
+        <ownedComment xmi:id="_uIkPAAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne le numero de phrase source
+ * @returnnumero de phrase source
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uIjA4QxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIk2EAxNEeCHP_Y2VsOKxw" name="setIdSource" visibility="public">
+        <ownedComment xmi:id="_uImrQAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie le numero de phrase source
+ * @param idSourcele nouveau numero de phrase source
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uIk2EQxNEeCHP_Y2VsOKxw" name="idSource">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uImrQQxNEeCHP_Y2VsOKxw" name="getIdCible" visibility="public">
+        <ownedComment xmi:id="_uIogcAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne le numero de phrase cible
+ * @returnnumero de phrase cible
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uImrQgxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIogcQxNEeCHP_Y2VsOKxw" name="setIdCible" visibility="public">
+        <ownedComment xmi:id="_uIqVoAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie le numero de phrase cible
+ * @param idCiblele nouveau numero de phrase cible
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uIogcgxNEeCHP_Y2VsOKxw" name="idCible">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIqVoQxNEeCHP_Y2VsOKxw" name="getTags" visibility="public">
+        <ownedComment xmi:id="_uIsK0AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne les mots communs aux deux phrases
+ * @returnune chaine de caractere contenant les mots communs
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uIqVogxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIsx4AxNEeCHP_Y2VsOKxw" name="setTags" visibility="public">
+        <ownedComment xmi:id="_uIuAAAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie les mots communs aux deux phrases
+ * @param tagsles nouveaux mots communs aux deux phrases
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uIsx4QxNEeCHP_Y2VsOKxw" name="tags">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uIunEAxNEeCHP_Y2VsOKxw" name="getCouleur" visibility="public">
+        <ownedComment xmi:id="_uI1UwAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la couleur de la relation
+ * @returnla couleur de la relation
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uIunEQxNEeCHP_Y2VsOKxw" name="return" type="_uAZxgAxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uI170AxNEeCHP_Y2VsOKxw" name="setCouleur" visibility="public">
+        <ownedComment xmi:id="_uI3xAAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie la couleur de la relation
+ * @param couleurla nouvelle couleur de la relation
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uI170QxNEeCHP_Y2VsOKxw" name="couleur" type="_uAZxgAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uI3xAQxNEeCHP_Y2VsOKxw" name="toString" visibility="public">
+        <ownedParameter xmi:id="_uI3xAgxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t8ndsQxNEeCHP_Y2VsOKxw" name="Phrase">
+      <ownedComment xmi:id="_t8pS4AxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe définisant une phrase qui est un id et un contenu (la phrase).
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_uI60UAxNEeCHP_Y2VsOKxw" name="id" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uI8pgAxNEeCHP_Y2VsOKxw" name="contenu" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_uI93oAxNEeCHP_Y2VsOKxw" name="setId" visibility="public">
+        <ownedComment xmi:id="_uI_FwAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie l'identifiant de la phrase
+ * @param idLe nouveau numero de la phrase
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uI93oQxNEeCHP_Y2VsOKxw" name="id">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uI_FwQxNEeCHP_Y2VsOKxw" name="getId" visibility="public">
+        <ownedComment xmi:id="_uJAT4AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne le numero de la phrase
+ * @returnnumero de la phrase
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uI_FwgxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJA68AxNEeCHP_Y2VsOKxw" name="setContenu" visibility="public">
+        <ownedComment xmi:id="_uJBiAAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie la phrase
+ * @param contenula nouvelle phrase
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJA68QxNEeCHP_Y2VsOKxw" name="contenu">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJCJEAxNEeCHP_Y2VsOKxw" name="getContenu" visibility="public">
+        <ownedComment xmi:id="_uJDXMAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la phrase
+ * @returnla phrase
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJCJEQxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t8rIEAxNEeCHP_Y2VsOKxw" name="Recuperation">
+      <ownedComment xmi:id="_t8vZgAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe qui effectue le parse d'un fichier XML
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_uJFMYAxNEeCHP_Y2VsOKxw" name="fichier" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uJI2wAxNEeCHP_Y2VsOKxw" name="trans" visibility="private" type="_t8gwAQxNEeCHP_Y2VsOKxw" association="_uOmlkAxNEeCHP_Y2VsOKxw"/>
+      <ownedOperation xmi:id="_uJLTAAxNEeCHP_Y2VsOKxw" name="definirCouleur" visibility="public">
+        <ownedComment xmi:id="_uJNIMAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Defini les couleurs selon une liste de couleurs puis si les couleurs
+ * sont déjà utilisés elles sont définis aléatoirement.
+ * @param transla Transformation contenant les données du fichier XML
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJLTAQxNEeCHP_Y2VsOKxw" name="trans" type="_t8gwAQxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJNIMQxNEeCHP_Y2VsOKxw" name="getTrans" visibility="public">
+        <ownedComment xmi:id="_uJO9YAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la Transformation qui contient les données du fichier XML
+ * @returnla transformation
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJNIMgxNEeCHP_Y2VsOKxw" name="return" type="_t8gwAQxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJPkcAxNEeCHP_Y2VsOKxw" name="setTrans" visibility="public">
+        <ownedComment xmi:id="_uJRZoAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie la Transformation
+ * @param transla nouvelle transformation
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJPkcQxNEeCHP_Y2VsOKxw" name="trans" type="_t8gwAQxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJSAsAxNEeCHP_Y2VsOKxw" name="setFichier" visibility="public">
+        <ownedComment xmi:id="_uJT14AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie le chemin du fichier XML 
+ * @param fichierle nouveau chemin du fichier
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJSAsQxNEeCHP_Y2VsOKxw" name="fichier">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJT14QxNEeCHP_Y2VsOKxw" name="getFichier" visibility="public">
+        <ownedComment xmi:id="_uJVrEAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne le chemin du fichier XML
+ * @returnle chemin du fichier XML
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJT14gxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOmlkAxNEeCHP_Y2VsOKxw" memberEnd="_uJI2wAxNEeCHP_Y2VsOKxw _uOmlkQxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOmlkQxNEeCHP_Y2VsOKxw" name="Recuperation" type="_t8rIEAxNEeCHP_Y2VsOKxw" association="_uOmlkAxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_t8wAkAxNEeCHP_Y2VsOKxw" name="vue">
+    <packagedElement xmi:type="uml:Class" xmi:id="_t8yc0AxNEeCHP_Y2VsOKxw" name="Vue">
+      <ownedComment xmi:id="_t82uQAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe définissant une Vue qui est un JPanel contenant les données du modele misent
+ * dans des JTextPane.
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <generalization xmi:id="_uJWSIAxNEeCHP_Y2VsOKxw" general="_uAaYkQxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uJYuYAxNEeCHP_Y2VsOKxw" name="serialVersionUID" visibility="private" isStatic="true" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_uJYuYQxNEeCHP_Y2VsOKxw"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uJc_0AxNEeCHP_Y2VsOKxw" name="donnees" visibility="private" type="_t8rIEAxNEeCHP_Y2VsOKxw" association="_uOnzsAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uJh4UAxNEeCHP_Y2VsOKxw" name="taillePanel" visibility="private" isStatic="true" type="_uAZxgQxNEeCHP_Y2VsOKxw" isReadOnly="true"/>
+      <ownedAttribute xmi:id="_uJp0IAxNEeCHP_Y2VsOKxw" name="largeurPhrase" visibility="private" isStatic="true" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_uJp0IQxNEeCHP_Y2VsOKxw" value="500"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uJuFkAxNEeCHP_Y2VsOKxw" name="largeurRelation" visibility="private" isStatic="true" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_uJuFkQxNEeCHP_Y2VsOKxw" value="200"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_uJy-EAxNEeCHP_Y2VsOKxw" name="espacementPhrase" visibility="private" isStatic="true" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_uJy-EQxNEeCHP_Y2VsOKxw" value="20"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_uJ1aUAxNEeCHP_Y2VsOKxw" name="dessinerPhrases" visibility="public">
+        <ownedComment xmi:id="_uJ32kAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Méthode permettant d'ajouter les phrases au JPanel en mettant chaque phrase du modele
+ * dans des JTextPanePhrase et en ajoutant ces JTextPanePhrase au JPanel
+ * @param donneesles données contenant les phrases et les relations du modele
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJ1aUQxNEeCHP_Y2VsOKxw" name="donnees" type="_t8rIEAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJ32kQxNEeCHP_Y2VsOKxw" name="dessinerRelations" visibility="public">
+        <ownedComment xmi:id="_uJ6S0AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Méthode permettant d'ajouter les relations au JPanel en mettant chaque relation du modele
+ * dans des JTextPaneRelation et en ajoutant ces JTextPaneRelation au JPanel
+ * @param donneesles données contenant les phrases et les relations du modele
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJ32kgxNEeCHP_Y2VsOKxw" name="donnees" type="_t8rIEAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJ6S0QxNEeCHP_Y2VsOKxw" name="getComposantsGraphiqueRelation" visibility="public">
+        <ownedComment xmi:id="_uJ8vEAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la liste des JTextPaneRelation du JPanel.
+ * @returnliste de JTextPaneRelation
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJ654AxNEeCHP_Y2VsOKxw" name="return" type="_uAWuMwxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJ9WIAxNEeCHP_Y2VsOKxw" name="getComposantsGraphiquePhrases" visibility="public">
+        <ownedComment xmi:id="_uJ_LUAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la liste des JTextPanePhrase du JPanel
+ * @returnliste de JTextPanePhrase
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJ9WIQxNEeCHP_Y2VsOKxw" name="return" type="_uAWuMwxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uJ_yYAxNEeCHP_Y2VsOKxw" name="getDonnees" visibility="public">
+        <ownedComment xmi:id="_uKBnkAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne les données
+ * @returnles données
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uJ_yYQxNEeCHP_Y2VsOKxw" name="return" type="_t8rIEAxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKCOoAxNEeCHP_Y2VsOKxw" name="setDonnees" visibility="public">
+        <ownedComment xmi:id="_uKEq4AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie les données
+ * @param donneesles nouvelles données
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKCOoQxNEeCHP_Y2VsOKxw" name="donnees" type="_t8rIEAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKFR8AxNEeCHP_Y2VsOKxw" name="getTaillePanel" visibility="public">
+        <ownedComment xmi:id="_uKHHIAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la taille du JPanel
+ * @returnla taille du JPanel 
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKFR8QxNEeCHP_Y2VsOKxw" name="return" type="_uAZxgQxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKHuMAxNEeCHP_Y2VsOKxw" name="getLargeurPhrase" visibility="public">
+        <ownedComment xmi:id="_uKJjYAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la largeur des phrases
+ * @returnlargeur des phrases
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKHuMQxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKKKcAxNEeCHP_Y2VsOKxw" name="getLargeurRelation" visibility="public">
+        <ownedComment xmi:id="_uKMmsAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la largeur des relations
+ * @returnlargeur relation
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKKKcQxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKMmsQxNEeCHP_Y2VsOKxw" name="getEspacementPhrase" visibility="public">
+        <ownedComment xmi:id="_uKPC8AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne l'espacement entre les phrases
+ * @returnespacement entre les phrases
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKMmsgxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t85KgAxNEeCHP_Y2VsOKxw" name="JTextPaneRelation">
+      <ownedComment xmi:id="_t86_sAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe définissant un JTextPaneRelation qui est un JTextPane plus une 
+ * Relation venant du modele
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <generalization xmi:id="_uKPC8QxNEeCHP_Y2VsOKxw" general="_uAf4IAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uKQREAxNEeCHP_Y2VsOKxw" name="relation" visibility="private" type="_t8lBcAxNEeCHP_Y2VsOKxw" association="_uOnzsgxNEeCHP_Y2VsOKxw"/>
+      <ownedOperation xmi:id="_uKRfMAxNEeCHP_Y2VsOKxw" name="getRelation" visibility="public">
+        <ownedComment xmi:id="_uKSGQAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la Relation
+ * @returnla Relation
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKRfMQxNEeCHP_Y2VsOKxw" name="return" type="_t8lBcAxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKStUAxNEeCHP_Y2VsOKxw" name="setRelation" visibility="public">
+        <ownedComment xmi:id="_uKTUYAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie la Relation
+ * @param relationla nouvelle Relation
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKStUQxNEeCHP_Y2VsOKxw" name="relation" type="_t8lBcAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t8-DAAxNEeCHP_Y2VsOKxw" name="VueTextuelle">
+      <ownedComment xmi:id="_t9EwsAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe définissant une vue graphe qui hérite de Vue
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <generalization xmi:id="_uKTUYQxNEeCHP_Y2VsOKxw" general="_t8yc0AxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uKW-wAxNEeCHP_Y2VsOKxw" name="serialVersionUID" visibility="private" isStatic="true" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_uKW-wQxNEeCHP_Y2VsOKxw"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_uKgIsAxNEeCHP_Y2VsOKxw" name="paintComponent" visibility="public">
+        <ownedParameter xmi:id="_uKgIsQxNEeCHP_Y2VsOKxw" name="g" type="_uAhGQAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKjzEAxNEeCHP_Y2VsOKxw" name="passerPointille" visibility="public">
+        <ownedComment xmi:id="_uKndcAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Passe l'objet Graphics g pour qu'il dessine plus large et en pointillé
+ * @param gl'objet graphics
+ * @returnun objet graphics2D
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKjzEQxNEeCHP_Y2VsOKxw" name="g" type="_uAhGQAxNEeCHP_Y2VsOKxw"/>
+        <ownedParameter xmi:id="_uKjzEgxNEeCHP_Y2VsOKxw" name="return" type="_uAhGQQxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKoEgAxNEeCHP_Y2VsOKxw" name="passerPlein" visibility="public">
+        <ownedComment xmi:id="_uKrH0AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * passe l'objet Graphics g en mode normal
+ * @param g
+ * @returnun objet graphics
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKoEgQxNEeCHP_Y2VsOKxw" name="g" type="_uAhGQAxNEeCHP_Y2VsOKxw"/>
+        <ownedParameter xmi:id="_uKoEggxNEeCHP_Y2VsOKxw" name="return" type="_uAhGQAxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKrH0QxNEeCHP_Y2VsOKxw" name="reDessinerPhrases" visibility="public">
+        <ownedComment xmi:id="_uKuLIAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * positionne les JTextPanePhrase au centre du JPanel les un en dessous 
+ * des autres
+ */
+</body>
+        </ownedComment>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKuLIQxNEeCHP_Y2VsOKxw" name="reDessinerRelations" visibility="public">
+        <ownedComment xmi:id="_uKxOcAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * positionne les relations altérnativement à gauche et à droite des phrases  
+ */
+</body>
+        </ownedComment>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uKx1gQxNEeCHP_Y2VsOKxw" name="seTouche" visibility="public">
+        <ownedComment xmi:id="_uK040AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Verifie si le JTextPaneRelation passé en parametre touche à un autre JTextPaneRelation
+ * @param relationla relation à tester
+ * @returnvrai si le composant touche un autre
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uKx1ggxNEeCHP_Y2VsOKxw" name="relation" type="_t85KgAxNEeCHP_Y2VsOKxw"/>
+        <ownedParameter xmi:id="_uKx1gwxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t9H0AAxNEeCHP_Y2VsOKxw" name="VueGraphe">
+      <ownedComment xmi:id="_t9NTkAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe définissant une vue graphe qui hérite de Vue
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <generalization xmi:id="_uK040QxNEeCHP_Y2VsOKxw" general="_t8yc0AxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uK38IAxNEeCHP_Y2VsOKxw" name="serialVersionUID" visibility="private" isStatic="true" isReadOnly="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_uK38IQxNEeCHP_Y2VsOKxw"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_uK6_cAxNEeCHP_Y2VsOKxw" name="paintComponent" visibility="public">
+        <ownedParameter xmi:id="_uK6_cQxNEeCHP_Y2VsOKxw" name="g" type="_uAhGQAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uK-CwAxNEeCHP_Y2VsOKxw" name="passerPointille" visibility="public">
+        <ownedComment xmi:id="_uLBGEAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Passe l'objet Graphics g pour qu'il dessine plus large et en pointillé
+ * @param gl'objet graphics
+ * @returnun objet graphics2D
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uK-CwQxNEeCHP_Y2VsOKxw" name="g" type="_uAhGQAxNEeCHP_Y2VsOKxw"/>
+        <ownedParameter xmi:id="_uK-CwgxNEeCHP_Y2VsOKxw" name="return" type="_uAhGQQxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uLBGEQxNEeCHP_Y2VsOKxw" name="passerPlein" visibility="public">
+        <ownedComment xmi:id="_uLEJYAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * passe l'objet Graphics g en mode normal
+ * @param g
+ * @returnun objet graphics
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uLBGEgxNEeCHP_Y2VsOKxw" name="g" type="_uAhGQAxNEeCHP_Y2VsOKxw"/>
+        <ownedParameter xmi:id="_uLBGEwxNEeCHP_Y2VsOKxw" name="return" type="_uAhGQAxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uLEJYQxNEeCHP_Y2VsOKxw" name="reDessinerPhrases" visibility="public">
+        <ownedComment xmi:id="_uLHMsAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * positionne les JTextPanePhrase au centre du JPanel les un en dessous 
+ * des autres
+ */
+</body>
+        </ownedComment>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uLHMsQxNEeCHP_Y2VsOKxw" name="reDessinerRelations" visibility="public">
+        <ownedComment xmi:id="_uLQ9sAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * positionne les relations altérnativement à gauche et à droite des phrases  
+ */
+</body>
+        </ownedComment>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uLQ9sQxNEeCHP_Y2VsOKxw" name="seTouche" visibility="public">
+        <ownedComment xmi:id="_uLUBAAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Verifie si le JTextPaneRelation passé en parametre touche à un autre JTextPaneRelation
+ * @param relationla relation à tester
+ * @returnvrai si le composant touche un autre
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uLQ9sgxNEeCHP_Y2VsOKxw" name="relation" type="_t85KgAxNEeCHP_Y2VsOKxw"/>
+        <ownedParameter xmi:id="_uLQ9swxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t9PIwAxNEeCHP_Y2VsOKxw" name="BordureArrondi">
+      <ownedComment xmi:id="_t9Q98AxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe permettant de créer une bordure arrondie qui implemente Border
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_uLVPIAxNEeCHP_Y2VsOKxw" name="couleur" visibility="private" type="_uAZxgAxNEeCHP_Y2VsOKxw"/>
+      <ownedOperation xmi:id="_uLWdQAxNEeCHP_Y2VsOKxw" name="paintBorder" visibility="public">
+        <ownedParameter xmi:id="_uLWdQQxNEeCHP_Y2VsOKxw" name="c" type="_uAVgEAxNEeCHP_Y2VsOKxw"/>
+        <ownedParameter xmi:id="_uLWdQgxNEeCHP_Y2VsOKxw" name="g" type="_uAhGQAxNEeCHP_Y2VsOKxw"/>
+        <ownedParameter xmi:id="_uLWdQwxNEeCHP_Y2VsOKxw" name="x">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uLWdRAxNEeCHP_Y2VsOKxw" name="y">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uLWdRQxNEeCHP_Y2VsOKxw" name="width">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_uLWdRgxNEeCHP_Y2VsOKxw" name="height">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uLXrYAxNEeCHP_Y2VsOKxw" name="getBorderInsets" visibility="public">
+        <ownedParameter xmi:id="_uLXrYQxNEeCHP_Y2VsOKxw" name="c" type="_uAVgEAxNEeCHP_Y2VsOKxw"/>
+        <ownedParameter xmi:id="_uLXrYgxNEeCHP_Y2VsOKxw" name="return" type="_uAiUYAxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uLY5gAxNEeCHP_Y2VsOKxw" name="isBorderOpaque" visibility="public">
+        <ownedParameter xmi:id="_uLY5gQxNEeCHP_Y2VsOKxw" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uLZgkAxNEeCHP_Y2VsOKxw" name="setCouleur" visibility="public">
+        <ownedParameter xmi:id="_uLZgkQxNEeCHP_Y2VsOKxw" name="couleur" type="_uAZxgAxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_t9SMEAxNEeCHP_Y2VsOKxw" name="JTextPanePhrase">
+      <ownedComment xmi:id="_t9TaMAxNEeCHP_Y2VsOKxw">
+        <body>/** 
+ * Classe définissant un JTextPanePhrase qui est un JTextPane contenant en 
+ * plus une Phrase(venant du modele).
+ * @author Thomas
+ */
+</body>
+      </ownedComment>
+      <generalization xmi:id="_uLausAxNEeCHP_Y2VsOKxw" general="_uAf4IAxNEeCHP_Y2VsOKxw"/>
+      <ownedAttribute xmi:id="_uLbVwAxNEeCHP_Y2VsOKxw" name="phrase" visibility="private" type="_t8ndsQxNEeCHP_Y2VsOKxw" association="_uOnztAxNEeCHP_Y2VsOKxw"/>
+      <ownedOperation xmi:id="_uLcj4AxNEeCHP_Y2VsOKxw" name="getPhrase" visibility="public">
+        <ownedComment xmi:id="_uLdK8AxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Donne la Phrase 
+ * @returnla Phrase
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uLcj4QxNEeCHP_Y2VsOKxw" name="return" type="_t8ndsQxNEeCHP_Y2VsOKxw" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_uLdK8QxNEeCHP_Y2VsOKxw" name="setPhrase" visibility="public">
+        <ownedComment xmi:id="_uLdyAAxNEeCHP_Y2VsOKxw">
+          <body>/** 
+ * Modifie la Phrase
+ * @param phrasela nouvelle Phrase
+ */
+</body>
+        </ownedComment>
+        <ownedParameter xmi:id="_uLdK8gxNEeCHP_Y2VsOKxw" name="phrase" type="_t8ndsQxNEeCHP_Y2VsOKxw"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOnzsAxNEeCHP_Y2VsOKxw" memberEnd="_uJc_0AxNEeCHP_Y2VsOKxw _uOnzsQxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOnzsQxNEeCHP_Y2VsOKxw" name="Vue" type="_t8yc0AxNEeCHP_Y2VsOKxw" association="_uOnzsAxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOnzsgxNEeCHP_Y2VsOKxw" memberEnd="_uKQREAxNEeCHP_Y2VsOKxw _uOnzswxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOnzswxNEeCHP_Y2VsOKxw" name="JTextPaneRelation" type="_t85KgAxNEeCHP_Y2VsOKxw" association="_uOnzsgxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_uOnztAxNEeCHP_Y2VsOKxw" memberEnd="_uLbVwAxNEeCHP_Y2VsOKxw _uOnztQxNEeCHP_Y2VsOKxw">
+      <ownedEnd xmi:id="_uOnztQxNEeCHP_Y2VsOKxw" name="JTextPanePhrase" type="_t9SMEAxNEeCHP_Y2VsOKxw" association="_uOnztAxNEeCHP_Y2VsOKxw"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_uATD0AxNEeCHP_Y2VsOKxw" name="java">
+    <packagedElement xmi:type="uml:Package" xmi:id="_uATD0QxNEeCHP_Y2VsOKxw" name="awt">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAVgEAxNEeCHP_Y2VsOKxw" name="Component"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAWHIAxNEeCHP_Y2VsOKxw" name="Point"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_uAWHIQxNEeCHP_Y2VsOKxw" name="event">
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAWHIgxNEeCHP_Y2VsOKxw" name="MouseEvent"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAWuMAxNEeCHP_Y2VsOKxw" name="MouseListener"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAWuMQxNEeCHP_Y2VsOKxw" name="MouseMotionListener"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAYjYAxNEeCHP_Y2VsOKxw" name="ActionEvent"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAYjYQxNEeCHP_Y2VsOKxw" name="ActionListener"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAZKcAxNEeCHP_Y2VsOKxw" name="BorderLayout"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAZxgAxNEeCHP_Y2VsOKxw" name="Color"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAZxgQxNEeCHP_Y2VsOKxw" name="Dimension"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAgfMAxNEeCHP_Y2VsOKxw" name="BasicStroke"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAhGQAxNEeCHP_Y2VsOKxw" name="Graphics"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAhGQQxNEeCHP_Y2VsOKxw" name="Graphics2D"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAiUYAxNEeCHP_Y2VsOKxw" name="Insets"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAiUYQxNEeCHP_Y2VsOKxw" name="RenderingHints"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_uAWuMgxNEeCHP_Y2VsOKxw" name="util">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAWuMwxNEeCHP_Y2VsOKxw" name="LinkedList"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAdb4AxNEeCHP_Y2VsOKxw" name="Random"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_uAc00AxNEeCHP_Y2VsOKxw" name="io">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAc00QxNEeCHP_Y2VsOKxw" name="IOException"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_uAYjYgxNEeCHP_Y2VsOKxw" name="javax">
+    <packagedElement xmi:type="uml:Package" xmi:id="_uAYjYwxNEeCHP_Y2VsOKxw" name="swing">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAYjZAxNEeCHP_Y2VsOKxw" name="JMenuItem"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAZxggxNEeCHP_Y2VsOKxw" name="JFrame"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAZxgwxNEeCHP_Y2VsOKxw" name="JMenu"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAaYkAxNEeCHP_Y2VsOKxw" name="JMenuBar"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAaYkQxNEeCHP_Y2VsOKxw" name="JPanel"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAaYkgxNEeCHP_Y2VsOKxw" name="JScrollPane"/>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAeqAAxNEeCHP_Y2VsOKxw" name="BorderFactory"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_uAeqAQxNEeCHP_Y2VsOKxw" name="text">
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAeqAgxNEeCHP_Y2VsOKxw" name="MutableAttributeSet"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAfREAxNEeCHP_Y2VsOKxw" name="SimpleAttributeSet"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAfREQxNEeCHP_Y2VsOKxw" name="StyleConstants"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAfREgxNEeCHP_Y2VsOKxw" name="StyledDocument"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_uAf4IAxNEeCHP_Y2VsOKxw" name="JTextPane"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_uAiUYgxNEeCHP_Y2VsOKxw" name="border">
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAi7cAxNEeCHP_Y2VsOKxw" name="Border"/>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_uAbmsAxNEeCHP_Y2VsOKxw" name="org">
+    <packagedElement xmi:type="uml:Package" xmi:id="_uAbmsQxNEeCHP_Y2VsOKxw" name="xml">
+      <packagedElement xmi:type="uml:Package" xmi:id="_uAbmsgxNEeCHP_Y2VsOKxw" name="sax">
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAbmswxNEeCHP_Y2VsOKxw" name="Attributes"/>
+        <packagedElement xmi:type="uml:Package" xmi:id="_uAbmtAxNEeCHP_Y2VsOKxw" name="helpers">
+          <packagedElement xmi:type="uml:DataType" xmi:id="_uAcNwAxNEeCHP_Y2VsOKxw" name="DefaultHandler"/>
+          <packagedElement xmi:type="uml:DataType" xmi:id="_uAeC8AxNEeCHP_Y2VsOKxw" name="XMLReaderFactory"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAdb4QxNEeCHP_Y2VsOKxw" name="SAXException"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_uAdb4gxNEeCHP_Y2VsOKxw" name="XMLReader"/>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_uDWX0AxNEeCHP_Y2VsOKxw" name="LinkedList&lt;JTextPaneRelation>"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_uDpSwAxNEeCHP_Y2VsOKxw" name="LinkedList&lt;JTextPanePhrase>"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_uHGPYAxNEeCHP_Y2VsOKxw" name="LinkedList&lt;Phrase>"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_uHLH4AxNEeCHP_Y2VsOKxw" name="LinkedList&lt;Relation>"/>
+</uml:Model>
