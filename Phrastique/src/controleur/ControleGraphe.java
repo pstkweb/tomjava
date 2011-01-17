@@ -13,8 +13,8 @@ import vue.VueGraphe;
 
 /**
  * Classe controleur de la vue graphe, elle implemente MouseListener et MouseMotionListener afin 
- * de permettre à l'utilisateur d'interagir avec les composants contenus dans cette vue. 
- * L'interaction se fait par glisser-déposer.
+ * de permettre a l'utilisateur d'interagir avec les composants contenus dans cette vue. 
+ * L'interaction se fait par glisser-deposer.
  * @author Thomas
  */
 public class ControleGraphe implements MouseListener, MouseMotionListener {
@@ -27,11 +27,11 @@ public class ControleGraphe implements MouseListener, MouseMotionListener {
 	private static final int margeSuperposition = 5;
 	
 	/**
-	 * Creer un controleGraphe contenant un objet VueGraphe passé en paramètre. Contient
-	 * également deux listes (les relations et les phrases) pour lesquels on ajoute 
-	 * des listeners sur chacun de leurs éléments.
+	 * Creer un controleGraphe contenant un objet VueGraphe passe en parametre. Contient
+	 * egalement deux listes (les relations et les phrases) pour lesquels on ajoute 
+	 * des listeners sur chacun de leurs elements.
 	 * @param graphe
-	 * la vue graphe à mettre en place
+	 * la vue graphe a mettre en place
 	 */
 	public ControleGraphe(VueGraphe graphe){
 		this.graphe = graphe;
@@ -55,7 +55,7 @@ public class ControleGraphe implements MouseListener, MouseMotionListener {
 	public void mouseDragged(MouseEvent e) {
 		/**
 		 * si composant au meme endroit qu'un autre composant
-		 * alors replacer à l'endroit précédent
+		 * alors replacer a l'endroit precedent
 		 */
 		boolean possible = true;
 		Point positionRel = new Point(e.getComponent().getX()+e.getX()-positionClick.x, 

@@ -23,7 +23,7 @@ import modele.Relation;
  */
 public  class Vue extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private Recuperation donnees = new Recuperation("exemple1.xml");
+	private Recuperation donnees;
 	private static final Dimension taillePanel = new Dimension(2000,1500);
 	private static final int largeurPhrase = 500;
 	private static final int largeurRelation = 200;
@@ -34,6 +34,7 @@ public  class Vue extends JPanel {
 	 */
 	public Vue(){
 		super(null);
+		donnees  = new Recuperation("exemple1.xml");
 		this.setPreferredSize(taillePanel);
 		dessinerPhrases(donnees);
 		dessinerRelations(donnees);

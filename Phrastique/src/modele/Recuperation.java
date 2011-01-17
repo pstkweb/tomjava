@@ -30,18 +30,15 @@ public class Recuperation {
 		try {
 			parseur = XMLReaderFactory.createXMLReader();
 		} catch (SAXException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		trans = new Transformation();
 		parseur.setContentHandler(trans);
-		parseur.setErrorHandler(trans);
 		
 		try{
 			try {
 				parseur.parse(fichier);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (SAXException e){
